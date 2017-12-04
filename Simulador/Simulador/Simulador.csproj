@@ -95,6 +95,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logica\Camion.cs" />
+    <Compile Include="Logica\Enum_Destinos.cs" />
+    <Compile Include="Logica\Generador.cs" />
+    <Compile Include="Logica\Persona.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

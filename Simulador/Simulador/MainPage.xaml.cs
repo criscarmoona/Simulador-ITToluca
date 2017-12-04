@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simulador.Logica;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Simulador
         public MainPage()
         {
             this.InitializeComponent();
+            Generador gen = new Generador();
         }
     }
 }
