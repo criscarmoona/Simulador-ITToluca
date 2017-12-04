@@ -1,6 +1,7 @@
 ﻿using Simulador.Logica;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -23,10 +24,20 @@ namespace Simulador
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        ObservableCollection<string> data = new ObservableCollection<string>();
         public MainPage()
         {
             this.InitializeComponent();
-            Generador gen = new Generador();
+            Generador gen = new Generador();           
+            
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            data.Add(DateTime.Now.ToString());
+            listView1.ItemsSource = data;
+            listView2.ItemsSource = data;
+            listView3.ItemsSource = data;
+
         }
     }
 }
