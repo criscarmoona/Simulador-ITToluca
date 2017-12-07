@@ -1,18 +1,24 @@
-﻿using Simulador.Logica;
+﻿using Simulador.Control_Animacion;
+using Simulador.Logica;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // La plantilla de elemento Página en blanco está documentada en https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0xc0a
@@ -25,19 +31,39 @@ namespace Simulador
     public sealed partial class MainPage : Page
     {
         ObservableCollection<string> data = new ObservableCollection<string>();
+
+        Animacion anima;
+
+        
+
+
+
         public MainPage()
         {
             this.InitializeComponent();
-            Generador gen = new Generador();           
-            
+            anima = new Animacion(this.BaseUri);
+            Generador gen = new Generador();
+            anima.Control_Global.Add(new ControlAnimacion { Control_numero=0,Posicion=0,Ruta=1, Parada=1, Tipo="Entrada"});
+            anima.Control_Global.Add(new ControlAnimacion { Control_numero = 0, Posicion = 0, Ruta = 1, Parada = 1 ,Tipo = "Salida" });
+
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             data.Add(DateTime.Now.ToString());
-            listView1.ItemsSource = data;
-            listView2.ItemsSource = data;
-            listView3.ItemsSource = data;
-
+            anima.Agregar_Persona(ruta1_2, anima.Control_Global[0]);
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            anima.Quitar_Persona(ruta1_2, anima.Control_Global[0]);
+        }
+
+        private async void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            anima.Animacion_Entrar_Persona(ruta1_2, anima.Control_Global[0],20);
+            anima.Animacion_Salida_Persona(Salida1_2, anima.Control_Global[1], 20);
+        }
+
+       
     }
 }

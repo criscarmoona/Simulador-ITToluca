@@ -95,6 +95,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control Animacion\Animacion.cs" />
+    <Compile Include="ControlAnimacion.cs" />
     <Compile Include="Logica\Camion.cs" />
     <Compile Include="Logica\Enum_Destinos.cs" />
     <Compile Include="Logica\Generador.cs" />
