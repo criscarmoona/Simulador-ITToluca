@@ -76,11 +76,21 @@ namespace Simulador.Control_Animacion
                 local_control.Posicion = local_control.Posicion - separacion;
                 if (Lista.Children.Count > 0)
                 {
+                    int conteo = 0;
                     foreach (var item in Lista.Children)
                     {
                         myTranslate = (TranslateTransform)item.RenderTransform;
                         if (myTranslate.Y > tope)
                         {
+
+                            if (conteo < Max_imagen)
+                            {
+                                item.Visibility = Visibility.Visible;
+                            }
+                            else
+                            {
+                                item.Visibility = Visibility.Collapsed;
+                            }
                             Debug.WriteLine(myTranslate.Y);
                             myTranslate.Y = myTranslate.Y - separacion;
                             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -89,6 +99,7 @@ namespace Simulador.Control_Animacion
                                   imagen.RenderTransform = myTranslate;
                               });
                         }
+                        conteo++;
 
                     }
                 }
@@ -136,10 +147,9 @@ namespace Simulador.Control_Animacion
 
 
         }
-        public async void Agregar_Persona(Grid Lista, ControlAnimacion Control)
+        public async void Agregar_Persona(Grid Lista, ControlAnimacion Control) 
         {
-            if (Lista.Children.Count < Max_imagen)
-            {
+            
                 Image img = new Image();
                 var local_control = Control_Global.Where(p => p.Ruta == Control.Ruta && p.Parada == Control.Parada).First();
                 img.VerticalAlignment = VerticalAlignment.Top;
@@ -150,13 +160,22 @@ namespace Simulador.Control_Animacion
                 img.RenderTransform = myTranslate;
                 bitmapImage.UriSource = new Uri(url, "Assets/Persona3.png");
                 img.Source = bitmapImage;
+                if (Lista.Children.Count < Max_imagen)
+                {
+                    img.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    img.Visibility = Visibility.Collapsed;
+                }              
+
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                                () =>
                                {
                                    Lista.Children.Add(img);
                                });
                 local_control.Posicion = local_control.Posicion + separacion;
-            }
+           
         }
         public  async void Quitar_Persona(Grid Lista, ControlAnimacion Control)
         {

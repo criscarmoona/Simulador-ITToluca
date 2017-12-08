@@ -305,13 +305,29 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Column="1" Grid.Row="1" x:Name="Salida1_2" />
                 <Grid Grid.Column="1" Grid.Row="2" x:Name="ruta1_2" HorizontalAlignment="Center" />
+
+                <Grid  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center">
+                    <Viewbox  Stretch="Uniform" >
+                         <Image  Source="Assets\camion.png"/>
+                    </Viewbox>
+                    <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Text="1230" FontWeight="ExtraBlack"/>
+                </Grid>
                 
-                <StackPanel  Grid.Column="3" Grid.Row="1"  VerticalAlignment="Bottom"  >
-                    <Image  Source="Assets\camion.png"   Width="150" Height="150" />
-                </StackPanel >
-                <StackPanel  Grid.Column="3" Grid.Row="2"  VerticalAlignment="Bottom" HorizontalAlignment="Stretch" >
-                    <TextBlock Text="Capacidad" Margin="0"  FontSize="30" HorizontalAlignment="Center"/>
-                    <TextBlock Text="1/1" Margin="0" FontSize="30" HorizontalAlignment="Center"/>
+                <StackPanel  Grid.Column="3" Grid.Row="2" >
+                    <TextBlock  Margin="0"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Run Text="Camion: " FontWeight="SemiBold"></Run>
+                        <Run Text="0"></Run>  
+                        <Run Text="/"></Run>
+                        <Run Text="0"></Run>
+                    </TextBlock>
+                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <Run Text="Personas " FontWeight="SemiBold"></Run>
+                        <Run Text="0"></Run> 
+                    </TextBlock>
+                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Run Text="Personas " FontWeight="SemiBold"></Run>
+                    <Run Text="{Binding ruta1_2.Children.Count}"></Run>
+                    </TextBlock>
                 </StackPanel>
                 
 
