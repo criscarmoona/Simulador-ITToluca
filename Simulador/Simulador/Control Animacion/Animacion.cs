@@ -197,5 +197,34 @@ namespace Simulador.Control_Animacion
                 Control_Global[0].Posicion = 0;
             }
         }
+        public async void Agregar_Camion(Grid Lista)
+        {
+              TranslateTransform myTranslate = new TranslateTransform();
+                Image img = new Image();
+                img.VerticalAlignment = VerticalAlignment.Center;
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.UriSource = new Uri(url, "Assets/camionR.png");
+                img.Source = bitmapImage;
+                Viewbox vi = new Viewbox();
+                vi.Stretch = Stretch.Uniform;
+                myTranslate.X = myTranslate.X + 20;
+                myTranslate.Y = myTranslate.Y - 20;
+                vi.Child = img;
+                vi.RenderTransform = myTranslate;
+                if (Lista.Children.Count < 2)
+                {
+                     vi.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                     vi.Visibility = Visibility.Collapsed;
+                }
+
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                                 () =>
+                                 {
+                                     Lista.Children.Insert(0, vi);
+                                 });
+        }
     }
 }

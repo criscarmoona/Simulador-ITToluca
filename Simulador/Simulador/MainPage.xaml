@@ -655,7 +655,7 @@
                 </Grid.RowDefinitions>
                 <Grid x:Name="cola_salida_3_3" Grid.Column="1" Grid.Row="1"  />
                 <Grid Grid.Column="1" Grid.Row="1"  >
-                    <TextBlock  Text="Terminal" FontWeight="Bold"  Foreground="#252526" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <TextBlock  Text="Galerias" FontWeight="Bold"  Foreground="#252526" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 </Grid>
                 <Grid x:Name="cola_entrada_3_3" Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Center" />
                 <Grid x:Name="camion_3_3" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center">
