@@ -284,7 +284,7 @@
                     <Viewbox  Stretch="Uniform" >
                         <Image  Source="Assets\camionR.png"/>
                     </Viewbox>
-                    <Viewbox  Stretch="Uniform" Margin="10" />
+                    
                 </Grid>
                 <Grid  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" >
                     <TextBlock x:Name="num_linea_1_1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="1230" FontWeight="ExtraBlack"/>
@@ -331,7 +331,7 @@
                     <Viewbox  Stretch="Uniform" >
                         <Image  Source="Assets\camionR.png"/>
                     </Viewbox>
-                    <Viewbox  Stretch="Uniform" Margin="10" />
+                    
                 </Grid>                
                 <Grid  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" >
                     <TextBlock x:Name="num_linea_1_2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="1230" FontWeight="ExtraBlack"/>
@@ -378,7 +378,7 @@
                     <Viewbox  Stretch="Uniform" >
                         <Image  Source="Assets\camionR.png"/>
                     </Viewbox>
-                    <Viewbox  Stretch="Uniform" Margin="10" />
+                    
                 </Grid>
                 <Grid  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" >
                     <TextBlock x:Name="num_linea_1_3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="1230" FontWeight="ExtraBlack"/>
@@ -426,7 +426,7 @@
                     <Viewbox  Stretch="Uniform" >
                         <Image  Source="Assets\camionA.png"/>
                     </Viewbox>
-                    <Viewbox  Stretch="Uniform" Margin="10" />
+                    
                 </Grid>
                 <Grid  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" >
                     <TextBlock x:Name="num_linea_2_1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="1230" FontWeight="ExtraBlack"/>
@@ -473,7 +473,7 @@
                     <Viewbox  Stretch="Uniform" >
                         <Image  Source="Assets\camionA.png"/>
                     </Viewbox>
-                    <Viewbox  Stretch="Uniform" Margin="10" />
+                    
                 </Grid>
                 <Grid  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" >
                     <TextBlock x:Name="num_linea_2_2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="1230" FontWeight="ExtraBlack"/>
@@ -520,7 +520,7 @@
                     <Viewbox  Stretch="Uniform" >
                         <Image  Source="Assets\camionA.png"/>
                     </Viewbox>
-                    <Viewbox  Stretch="Uniform" Margin="10" />
+                    
                 </Grid>
                 <Grid  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" >
                     <TextBlock x:Name="num_linea_2_3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="1230" FontWeight="ExtraBlack"/>
@@ -568,7 +568,7 @@
                     <Viewbox  Stretch="Uniform" >
                         <Image  Source="Assets\camionV.png"/>
                     </Viewbox>
-                    <Viewbox  Stretch="Uniform" Margin="10" />
+                    
                 </Grid>
                 <Grid  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" >
                     <TextBlock x:Name="num_linea_3_1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="1230" FontWeight="ExtraBlack"/>
@@ -615,7 +615,7 @@
                     <Viewbox  Stretch="Uniform" >
                         <Image  Source="Assets\camionV.png"/>
                     </Viewbox>
-                    <Viewbox  Stretch="Uniform" Margin="10" />
+                    
                 </Grid>
                 <Grid  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" >
                     <TextBlock x:Name="num_linea_3_2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="1230" FontWeight="ExtraBlack"/>
@@ -662,7 +662,7 @@
                     <Viewbox  Stretch="Uniform" >
                         <Image  Source="Assets\camionV.png"/>
                     </Viewbox>
-                    <Viewbox  Stretch="Uniform" Margin="10" />
+                    
                 </Grid>
                 <Grid  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" >
                     <TextBlock x:Name="num_linea_3_3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="1230" FontWeight="ExtraBlack"/>

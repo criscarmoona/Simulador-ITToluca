@@ -226,5 +226,16 @@ namespace Simulador.Control_Animacion
                                      Lista.Children.Insert(0, vi);
                                  });
         }
+        public async void Quitar_Camion(Grid Lista)
+        {
+            if (Lista.Children.Count > 0)
+            {
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                              () =>
+                              {
+                                  Lista.Children.RemoveAt(0);
+                              });
+            }
+        }
     }
 }

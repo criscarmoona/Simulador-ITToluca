@@ -57,23 +57,8 @@ namespace Simulador
         {
             //anima.Quitar_Persona(ruta1_2, anima.Control_Global[0]);
 
-
-            TranslateTransform myTranslate = new TranslateTransform();
-
-            Image img = new Image();
-            img.VerticalAlignment = VerticalAlignment.Center;
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.UriSource = new Uri(this.BaseUri, "Assets/camionR.png");
-            img.Source = bitmapImage;
-            Viewbox vi = new Viewbox();
-            vi.Stretch = Stretch.Uniform;                       
-            myTranslate.X = myTranslate.X + 20;
-            myTranslate.Y = myTranslate.Y - 20;
+            anima.Agregar_Camion(camion_1_2);
             
-            vi.Child = img;
-            vi.RenderTransform = myTranslate;
-
-            camion_1_2.Children.Insert(0, vi); ;
 
         }
 
