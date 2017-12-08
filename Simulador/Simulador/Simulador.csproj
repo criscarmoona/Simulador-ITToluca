@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Control Animacion\Animacion.cs" />
     <Compile Include="ControlAnimacion.cs" />
+    <Compile Include="Control\Control Datos.cs" />
     <Compile Include="Logica\Camion.cs" />
     <Compile Include="Logica\Enum_Destinos.cs" />
     <Compile Include="Logica\Generador.cs" />
@@ -114,6 +115,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\camion.png" />
+    <Content Include="Assets\camionA.png" />
+    <Content Include="Assets\camionR.png" />
+    <Content Include="Assets\camionV.png" />
     <Content Include="Assets\Persona.png" />
     <Content Include="Assets\Persona2.png" />
     <Content Include="Assets\Persona3.png" />

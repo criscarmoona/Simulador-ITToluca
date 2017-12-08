@@ -23,8 +23,9 @@ namespace Simulador.Control_Animacion
         private int Max_imagen = 6;
 
         private Double centro_maximo = 200;
-
         private Uri url;
+
+        public int[] alto = new int[] { 1,2};
 
         public Animacion( Uri _uri)
         {
@@ -35,6 +36,7 @@ namespace Simulador.Control_Animacion
         {
             TranslateTransform myTranslate = new TranslateTransform();
             Double tope = 0;
+            alto[1]++;
             var local_control = Control_Global.Where(p => p.Ruta == Control.Ruta && p.Parada == Control.Parada).First();
 
             if (Lista.Children.Count > 0 && local_control.Control_numero < Lista.Children.Count)

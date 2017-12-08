@@ -1,4 +1,5 @@
-﻿using Simulador.Control_Animacion;
+﻿using Simulador.Control;
+using Simulador.Control_Animacion;
 using Simulador.Logica;
 using System;
 using System.Collections.Generic;
@@ -31,12 +32,10 @@ namespace Simulador
     public sealed partial class MainPage : Page
     {
         ObservableCollection<string> data = new ObservableCollection<string>();
+        Control_Datos Control_datos = new Control_Datos();
+
 
         Animacion anima;
-
-        
-
-
 
         public MainPage()
         {
@@ -45,23 +44,45 @@ namespace Simulador
             Generador gen = new Generador();
             anima.Control_Global.Add(new ControlAnimacion { Control_numero=0,Posicion=0,Ruta=1, Parada=1, Tipo="Entrada"});
             anima.Control_Global.Add(new ControlAnimacion { Control_numero = 0, Posicion = 0, Ruta = 1, Parada = 1 ,Tipo = "Salida" });
+            this.DataContext = this;
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             data.Add(DateTime.Now.ToString());
-            anima.Agregar_Persona(ruta1_2, anima.Control_Global[0]);
+            anima.Agregar_Persona(cola_entrada_1_2, anima.Control_Global[0]);
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            anima.Quitar_Persona(ruta1_2, anima.Control_Global[0]);
+            //anima.Quitar_Persona(ruta1_2, anima.Control_Global[0]);
+
+
+            TranslateTransform myTranslate = new TranslateTransform();
+
+            Image img = new Image();
+            img.VerticalAlignment = VerticalAlignment.Center;
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.UriSource = new Uri(this.BaseUri, "Assets/camionR.png");
+            img.Source = bitmapImage;
+            Viewbox vi = new Viewbox();
+            vi.Stretch = Stretch.Uniform;                       
+            myTranslate.X = myTranslate.X + 20;
+            myTranslate.Y = myTranslate.Y - 20;
+            
+            vi.Child = img;
+            vi.RenderTransform = myTranslate;
+
+            camion_1_2.Children.Insert(0, vi); ;
+
         }
 
         private async void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            anima.Animacion_Entrar_Persona(ruta1_2, anima.Control_Global[0],20);
-            anima.Animacion_Salida_Persona(Salida1_2, anima.Control_Global[1], 20);
+            Control_datos.numero++;
+
+            anima.Animacion_Entrar_Persona(cola_entrada_1_2, anima.Control_Global[0],20);
+            anima.Animacion_Salida_Persona(cola_salida_1_2, anima.Control_Global[1], 20);
         }
 
        
