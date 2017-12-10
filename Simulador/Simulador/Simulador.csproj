@@ -96,7 +96,11 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Control Animacion\Animacion.cs" />
-    <Compile Include="ControlAnimacion.cs" />
+    <Compile Include="Control Animacion\Control_Camion.cs" />
+    <Compile Include="Control Animacion\Control_int_Animacion.cs" />
+    <Compile Include="Control Animacion\Control_Persona.cs" />
+    <Compile Include="Control Animacion\Enum_TipoAnimacion.cs" />
+    <Compile Include="Control Animacion\ControlAnimacion.cs" />
     <Compile Include="Control\Control Datos.cs" />
     <Compile Include="Logica\Camion.cs" />
     <Compile Include="Logica\Enum_Destinos.cs" />

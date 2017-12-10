@@ -16,7 +16,8 @@ namespace Simulador.Control_Animacion
 {
     public class Animacion
     {
-        public  ObservableCollection<ControlAnimacion> Control_Global = new ObservableCollection<ControlAnimacion>();
+        public event EventHandler<ObservableCollection<ControlAnimacion>> EventoActualizarDatos;
+        public static ObservableCollection<ControlAnimacion> Control_Global = new ObservableCollection<ControlAnimacion>();       
 
         private int separacion = 13;
         private int tamaño_imagen = 35;
@@ -24,26 +25,29 @@ namespace Simulador.Control_Animacion
 
         private Double centro_maximo = 200;
         private Uri url;
-
         public int[] alto = new int[] { 1,2};
 
         public Animacion( Uri _uri)
         {
             url = _uri;
+           
         }
 
-        public async void Animacion_Entrar_Persona(Grid Lista, ControlAnimacion Control, int velocidad)
+        public async void Animacion_Entrar_Persona( int ruta , int parada, int velocidad)
         {
             TranslateTransform myTranslate = new TranslateTransform();
+            ControlAnimacion _Control = Control_Global.Where(p => p.Ruta == ruta && p.Parada == parada).First();
+            var _posicion = _Control.Variables_Animaciones.Where(p => p.Tipo == Enum_Destinos.Entrada).First();
+            var Control = _Control.Personas;
+            Grid Lista = Control.Grid_Personas;
             Double tope = 0;
             alto[1]++;
-            var local_control = Control_Global.Where(p => p.Ruta == Control.Ruta && p.Parada == Control.Parada).First();
 
-            if (Lista.Children.Count > 0 && local_control.Control_numero < Lista.Children.Count)
+            if (Lista.Children.Count > 0 && _posicion.Control_numero < Lista.Children.Count)
             {
 
-                var imagen = Lista.Children[local_control.Control_numero];
-                local_control.Control_numero++;
+                var imagen = Lista.Children[_posicion.Control_numero];
+                _posicion.Control_numero++;
 
                 for (int i = 0; i < 50; i++)
                 {
@@ -74,8 +78,8 @@ namespace Simulador.Control_Animacion
                                   Lista.Children.RemoveAt(0);
                               });
                 Debug.WriteLine("total " + myTranslate.Y);
-                local_control.Control_numero--;
-                local_control.Posicion = local_control.Posicion - separacion;
+                _posicion.Control_numero--;
+                _posicion.Posicion = _posicion.Posicion - separacion;
                 if (Lista.Children.Count > 0)
                 {
                     int conteo = 0;
@@ -105,14 +109,18 @@ namespace Simulador.Control_Animacion
 
                     }
                 }
+                _Control.Personas.Num_Personsa_Espera--;
+                _Control.Camiones[0].Num_Abordo++;
+                EventoActualizarDatos?.Invoke(this, Control_Global);
 
             }
         }
-        public async void Animacion_Salida_Persona(Grid Lista, ControlAnimacion Control, int velocidad)
+        public async void Animacion_Salida_Persona( int ruta, int parada, int velocidad)
         {
-
-
             TranslateTransform myTranslate = new TranslateTransform();
+            ControlAnimacion _Control = Control_Global.Where(p => p.Ruta == ruta && p.Parada == parada).First();
+            var Control = _Control.Personas;
+            Grid Lista = Control.Grid_Personas_SALIDA;
 
             Image img = new Image();
             img.VerticalAlignment = VerticalAlignment.Center;
@@ -144,98 +152,148 @@ namespace Simulador.Control_Animacion
                                 {
                                     Lista.Children.Remove(img);
                                 });
-
-
-
-
-        }
-        public async void Agregar_Persona(Grid Lista, ControlAnimacion Control) 
-        {
             
-                Image img = new Image();
-                var local_control = Control_Global.Where(p => p.Ruta == Control.Ruta && p.Parada == Control.Parada).First();
-                img.VerticalAlignment = VerticalAlignment.Top;
-                BitmapImage bitmapImage = new BitmapImage();
-                img.Width = bitmapImage.DecodePixelWidth = tamaño_imagen;
-                TranslateTransform myTranslate = new TranslateTransform();
-                myTranslate.Y = myTranslate.Y + local_control.Posicion;
-                img.RenderTransform = myTranslate;
-                bitmapImage.UriSource = new Uri(url, "Assets/Persona3.png");
-                img.Source = bitmapImage;
-                if (Lista.Children.Count < Max_imagen)
-                {
-                    img.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    img.Visibility = Visibility.Collapsed;
-                }              
-
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                               () =>
-                               {
-                                   Lista.Children.Add(img);
-                               });
-                local_control.Posicion = local_control.Posicion + separacion;
-           
+            _Control.Camiones[0].Num_Abordo--;
+            EventoActualizarDatos?.Invoke(this, Control_Global);
         }
-        public  async void Quitar_Persona(Grid Lista, ControlAnimacion Control)
+        public async void Agregar_Persona( int ruta, int parada) 
         {
+            ControlAnimacion _Control = Control_Global.Where(p => p.Ruta == ruta && p.Parada == parada).First();
+            var _posicion = _Control.Variables_Animaciones.Where(p => p.Tipo == Enum_Destinos.Entrada).First();
+            var Control = _Control.Personas;
+            Grid Lista = Control.Grid_Personas;
+            Image img = new Image();
+            img.VerticalAlignment = VerticalAlignment.Top;
+            BitmapImage bitmapImage = new BitmapImage();
+            img.Width = bitmapImage.DecodePixelWidth = tamaño_imagen;
+            TranslateTransform myTranslate = new TranslateTransform();
+            myTranslate.Y = myTranslate.Y + _posicion.Posicion;
+            img.RenderTransform = myTranslate;
+            switch (ruta)
+            {
+                case 1:
+                    bitmapImage.UriSource = new Uri(url, "Assets/Persona.png");
+                    break;
+                case 2:
+                    bitmapImage.UriSource = new Uri(url, "Assets/Persona2.png");
+                    break;
+                case 3:
+                    bitmapImage.UriSource = new Uri(url, "Assets/Persona3.png");
+                    break;
+            }
+            
+            img.Source = bitmapImage;
+            if (Lista.Children.Count < Max_imagen)
+            {
+                img.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                img.Visibility = Visibility.Collapsed;
+            }              
+
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                            () =>
+                            {
+                                Lista.Children.Add(img);
+                            });
+            _posicion.Posicion = _posicion.Posicion + separacion;
+            _Control.Personas.Num_Personsa_Espera++;
+            EventoActualizarDatos?.Invoke(this, Control_Global);
+        }
+        public  async void Quitar_Persona( int ruta, int parada)
+        {
+
+            ControlAnimacion _Control = Control_Global.Where(p => p.Ruta == ruta && p.Parada == parada).First();
+            var _posicion = _Control.Variables_Animaciones.Where(p=>p.Tipo== Enum_Destinos.Entrada).First();
+            var Control = _Control.Personas;
+            Grid Lista = Control.Grid_Personas;
             if (Lista.Children.Count > 0)
             {
-                var local_control = Control_Global.Where(p => p.Ruta == Control.Ruta && p.Parada == Control.Parada).First();
-                local_control.Posicion = local_control.Posicion - separacion;
+                _posicion.Posicion = _posicion.Posicion - separacion;
                 int aux = Lista.Children.Count - 1;
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                               () =>
                               {
                                   Lista.Children.RemoveAt(aux);
                               });
+                _Control.Personas.Num_Personsa_Espera--;
+                EventoActualizarDatos?.Invoke(this, Control_Global);
             }
             else
             {
-                Control_Global[0].Posicion = 0;
+                _posicion.Posicion = 0;
             }
         }
-        public async void Agregar_Camion(Grid Lista)
+        public async void Agregar_Camion(int ruta, int parada,int capacidad, int personas, int identifi)
         {
-              TranslateTransform myTranslate = new TranslateTransform();
-                Image img = new Image();
-                img.VerticalAlignment = VerticalAlignment.Center;
-                BitmapImage bitmapImage = new BitmapImage();
-                bitmapImage.UriSource = new Uri(url, "Assets/camionR.png");
-                img.Source = bitmapImage;
-                Viewbox vi = new Viewbox();
-                vi.Stretch = Stretch.Uniform;
+            TranslateTransform myTranslate = new TranslateTransform();
+            ControlAnimacion _Control = Control_Global.Where(p => p.Ruta == ruta && p.Parada == parada).First();
+            _Control.Camiones.Add(new Control_Camion {Total_Cap_Camion= capacidad ,Num_Abordo= personas,Numero_Camion= identifi});
+            Grid Lista = _Control.Grid_Camiones;
+            Image img = new Image();
+            img.VerticalAlignment = VerticalAlignment.Center;
+            BitmapImage bitmapImage = new BitmapImage();
+            switch (ruta)
+            {
+                case 1:
+                    bitmapImage.UriSource = new Uri(url, "Assets/camionR.png");
+                    break;
+                case 2:
+                    bitmapImage.UriSource = new Uri(url, "Assets/camionA.png");
+                    break;
+                case 3:
+                    bitmapImage.UriSource = new Uri(url, "Assets/camionV.png");
+                    break;
+            }            
+            img.Source = bitmapImage;
+            Viewbox vi = new Viewbox();
+            vi.Stretch = Stretch.Uniform;
+            if (Lista.Children.Count!=0)
+            {
                 myTranslate.X = myTranslate.X + 20;
                 myTranslate.Y = myTranslate.Y - 20;
-                vi.Child = img;
-                vi.RenderTransform = myTranslate;
-                if (Lista.Children.Count < 2)
-                {
-                     vi.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                     vi.Visibility = Visibility.Collapsed;
-                }
+            }            
+            vi.Child = img;
+            vi.RenderTransform = myTranslate;
+            if (Lista.Children.Count < 2)
+            {
+                    vi.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                    vi.Visibility = Visibility.Collapsed;
+            }
 
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                                 () =>
-                                 {
-                                     Lista.Children.Insert(0, vi);
-                                 });
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                                () =>
+                                {
+                                    Lista.Children.Insert(0, vi);
+                                });
+            _Control.Num_Camiones_Espera= Lista.Children.Count;
+            EventoActualizarDatos?.Invoke(this, Control_Global) ;
         }
-        public async void Quitar_Camion(Grid Lista)
+        public async void Quitar_Camion(int ruta, int parada)
         {
+            ControlAnimacion _Control = Control_Global.Where(p => p.Ruta == ruta && p.Parada == parada ).First();
+            var Control = _Control.Camiones[0];
+            TranslateTransform myTranslate = new TranslateTransform();
+            Grid Lista = _Control.Grid_Camiones;
+            myTranslate.X = 0;
+            myTranslate.Y = 0;          
+
             if (Lista.Children.Count > 0)
             {
+                _Control.Camiones.RemoveAt(_Control.Camiones.Count - 1);
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                               () =>
                               {
-                                  Lista.Children.RemoveAt(0);
+                                  Lista.Children.RemoveAt(Lista.Children.Count-1);
+                                  Lista.Children[0].RenderTransform = myTranslate;
                               });
             }
+            _Control.Num_Camiones_Espera = Lista.Children.Count;
+            EventoActualizarDatos?.Invoke(this, Control_Global);
         }
     }
 }
