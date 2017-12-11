@@ -277,7 +277,7 @@ namespace Simulador
 
         private async void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            anima.Animacion_Entrar_Persona(  1, 2, 5);
+            anima.Animacion_Entrar_Persona(  1, 2, 50);
             //anima.Animacion_Salida_Persona( 1, 2, 5);
         }
 
