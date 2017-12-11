@@ -51,47 +51,47 @@ namespace Simulador.Logica
             tiempoSalidaCamionesTenangoMinutos = horaSimulador.AddMinutes(RandomDouble(1, 5));
             tiempoSalidaCamionesTolucaMinutos = horaSimulador.AddMinutes(RandomDouble(1, 5));
             tiempoSalidaCamionesTerminalMinutos = horaSimulador.AddMinutes(RandomDouble(1, 5));
-            Imprimir("Tiempo para siguiente camion : " + tiempoSalidaCamionesTenangoMinutos);
+            //Imprimir("Tiempo para siguiente camion : " + tiempoSalidaCamionesTenangoMinutos);
             temporizador = ThreadPoolTimer.CreatePeriodicTimer(CambioHora, TimeSpan.FromMilliseconds(CalcularPeriodo()));
         }
         void CambioHora(ThreadPoolTimer timer)
         {
             horaSimulador = horaSimulador.AddMinutes(1);
             NuevaHora?.Invoke(null, horaSimulador);
-            Imprimir("Cambianido hora: " + horaSimulador);
+            //Imprimir("Cambianido hora: " + horaSimulador);
             if (horaSimulador >= tiempoSalidaCamionesTenangoMinutos)
             {
                 int miliSegundosSalida = random.Next(1000, 5000);
-                Imprimir("Creando camion Tenango con salida: " + horaSimulador.AddMilliseconds(miliSegundosSalida));
+                //Imprimir("Creando camion Tenango con salida: " + horaSimulador.AddMilliseconds(miliSegundosSalida));
 
                 CrearCamion(1, 1, miliSegundosSalida, horaSimulador.AddMilliseconds(miliSegundosSalida));
 
                 tiempoSalidaCamionesTenangoMinutos = horaSimulador.AddMinutes(RandomDouble(1, 5));
-                Imprimir("Tiempo para siguiente camion Tenango: " + tiempoSalidaCamionesTenangoMinutos);
+                //Imprimir("Tiempo para siguiente camion Tenango: " + tiempoSalidaCamionesTenangoMinutos);
             }
             if (horaSimulador >= tiempoSalidaCamionesTolucaMinutos)
             {
                 int miliSegundosSalida = random.Next(1000, 5000);
-                Imprimir("Creando camion Toluca con salida: " + horaSimulador.AddMilliseconds(miliSegundosSalida));
+                //Imprimir("Creando camion Toluca con salida: " + horaSimulador.AddMilliseconds(miliSegundosSalida));
 
                 CrearCamion(2, 1, miliSegundosSalida, horaSimulador.AddMilliseconds(miliSegundosSalida));
 
                 tiempoSalidaCamionesTolucaMinutos = horaSimulador.AddMinutes(RandomDouble(1, 5));
-                Imprimir("Tiempo para siguiente camion Toluca: " + tiempoSalidaCamionesTolucaMinutos);
+                //Imprimir("Tiempo para siguiente camion Toluca: " + tiempoSalidaCamionesTolucaMinutos);
             }
             if (horaSimulador >= tiempoSalidaCamionesTerminalMinutos)
             {
                 int miliSegundosSalida = random.Next(1000, 5000);
-                Imprimir("Creando camion Terminal con salida : " + horaSimulador.AddMilliseconds(miliSegundosSalida));
+                //Imprimir("Creando camion Terminal con salida : " + horaSimulador.AddMilliseconds(miliSegundosSalida));
 
                 CrearCamion(3, 1, miliSegundosSalida, horaSimulador.AddMilliseconds(miliSegundosSalida));
 
                 tiempoSalidaCamionesTerminalMinutos = horaSimulador.AddMinutes(RandomDouble(1, 5));
-                Imprimir("Tiempo para siguiente camion Terminal : " + tiempoSalidaCamionesTerminalMinutos);
+                //Imprimir("Tiempo para siguiente camion Terminal : " + tiempoSalidaCamionesTerminalMinutos);
             }
             if (camiones.camionesTenango.Any(p => p.HoraSalida <= horaSimulador))
             {
-                Imprimir("Cambniando parada camion Tenango");
+                //Imprimir("Cambniando parada camion Tenango");
                 var camionSale = camiones.camionesTenango.Where(p => p.HoraSalida <= horaSimulador).FirstOrDefault();
                 QuitarCamionV(camionSale);
                 camiones.camionesTenango.Remove(camionSale);
@@ -99,13 +99,13 @@ namespace Simulador.Logica
                 if (camionSale.Parada < 4)
                 {
                     int miliSegundosSalida = random.Next(1000, 5000);
-                    Imprimir("Cambio parada Tenango con salida: " + horaSimulador.AddMilliseconds(miliSegundosSalida));
+                    //Imprimir("Cambio parada Tenango con salida: " + horaSimulador.AddMilliseconds(miliSegundosSalida));
                     CrearCamion(camionSale.Ruta, camionSale.Parada, miliSegundosSalida, horaSimulador.AddMilliseconds(miliSegundosSalida));
                 }
             }
             if (camiones.camionesTerminal.Any(p => p.HoraSalida <= horaSimulador))
             {
-                Imprimir("Cambniando parada  camion terminal");
+                //Imprimir("Cambniando parada  camion terminal");
                 var camionSale = camiones.camionesTerminal.Where(p => p.HoraSalida <= horaSimulador).FirstOrDefault();
                 QuitarCamionV(camionSale);
                 camiones.camionesTerminal.Remove(camionSale);
@@ -113,13 +113,13 @@ namespace Simulador.Logica
                 if (camionSale.Parada < 4)
                 {
                     int miliSegundosSalida = random.Next(1000, 5000);
-                    Imprimir("Cambio ruta Terminal con salida: " + horaSimulador.AddMilliseconds(miliSegundosSalida));
+                    //Imprimir("Cambio ruta Terminal con salida: " + horaSimulador.AddMilliseconds(miliSegundosSalida));
                     CrearCamion(camionSale.Ruta, camionSale.Parada, miliSegundosSalida, horaSimulador.AddMilliseconds(miliSegundosSalida));
                 }
             }
             if (camiones.camionesToluca.Any(p => p.HoraSalida <= horaSimulador))
             {
-                Imprimir("Cambniando parada camion Toluca");
+                //Imprimir("Cambniando parada camion Toluca");
                 var camionSale = camiones.camionesToluca.Where(p => p.HoraSalida <= horaSimulador).FirstOrDefault();
                 QuitarCamionV(camionSale);
                 camiones.camionesToluca.Remove(camionSale);
@@ -127,11 +127,11 @@ namespace Simulador.Logica
                 if (camionSale.Parada < 4)
                 {
                     int miliSegundosSalida = random.Next(1000, 5000);
-                    Imprimir("Cambio parada Toluca con salida: " + horaSimulador.AddMilliseconds(miliSegundosSalida));
+                    //Imprimir("Cambio parada Toluca con salida: " + horaSimulador.AddMilliseconds(miliSegundosSalida));
                     CrearCamion(camionSale.Ruta, camionSale.Parada, miliSegundosSalida, horaSimulador.AddMilliseconds(miliSegundosSalida));
                 }
             }
-            Imprimir(horaSimulador.ToString("hh:mm:ss tt") + " multiplicador: " + multiplicadorTiempo);
+            //Imprimir(horaSimulador.ToString("hh:mm:ss tt") + " multiplicador: " + multiplicadorTiempo);
         }
         public void QuitarCamionV(AgregarCamion camion)
         {
@@ -148,7 +148,7 @@ namespace Simulador.Logica
         private double CalcularPeriodo()
         {
             double nuevoPeriodo = 1000 / multiplicadorTiempo;
-            Imprimir("Periodo: " + nuevoPeriodo);
+            //Imprimir("Periodo: " + nuevoPeriodo);
             return nuevoPeriodo;
         }
         public double RandomDouble(double minimo, double maximo)
