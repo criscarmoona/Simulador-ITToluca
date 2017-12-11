@@ -5,7 +5,6 @@ namespace Simulador.Logica
 {
     public class AgregarCamion
     {
-        ThreadPoolTimer temporizador;
 
         public int NumeroCamion { get; set; }
         public int Ruta { get; set; }
@@ -13,12 +12,11 @@ namespace Simulador.Logica
         public int Capacidad { get; set; }
         public int ABordo { get; set; }
         public int Bajan { get; set; }
-        public float TiempoParada { get; set; }
+        public int TiempoParadaMilisegundos { get; set; }
+        public DateTimeOffset HoraSalida { get; set; }
 
-        public EventHandler<AgregarCamion> NuevoCamion { get; set; }
-        public EventHandler<QuitarCamion> QuitarCamion { get; set; }
 
-        public AgregarCamion(int numeroCamion, int ruta, int parada, int capacidad, int aBordo, int bajan, int tiempoParada)
+        public AgregarCamion(int numeroCamion, int ruta, int parada, int capacidad, int aBordo, int bajan, int tiempoParada, DateTimeOffset horaSalida)
         {
             NumeroCamion = numeroCamion;
             Ruta = ruta;
@@ -26,8 +24,8 @@ namespace Simulador.Logica
             Capacidad = capacidad;
             ABordo = aBordo;
             Bajan = bajan;
-            TiempoParada = tiempoParada;
-            //temporizador = ThreadPoolTimer.CreatePeriodicTimer(CambioHora, TimeSpan.FromMilliseconds(5000));
+            TiempoParadaMilisegundos = tiempoParada;
+            HoraSalida = horaSalida;
         }
     }
 }

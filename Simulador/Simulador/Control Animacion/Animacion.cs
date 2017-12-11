@@ -47,7 +47,7 @@ namespace Simulador.Control_Animacion
             Poleo_datos = ThreadPoolTimer.CreatePeriodicTimer(Cargar_Personas, TimeSpan.FromMilliseconds(100));
         }
 
-        private void Gen_NuevaPersona(object sender, Persona e)
+        private void Gen_NuevaPersona(object sender, AgregarPersona e)
         {
             if (e!=null)
             {
@@ -55,16 +55,16 @@ namespace Simulador.Control_Animacion
             }
         }
 
-        private void Gen_QuitarCamion(object sender, int e)
+        private void Gen_QuitarCamion(object sender, QuitarCamion e)
         {
-            //Quitar_Camion(int ruta, int parada);
+            Quitar_Camion(e.Ruta, e.Parada);
         }
 
-        private void Gen_NuevoCamion(object sender, Camion e)
+        private void Gen_NuevoCamion(object sender, AgregarCamion e)
         {
             if (e!=null)
             {
-                Agregar_Camion(e.Ruta, e.Parada, e.Capacidad, e.ABordo, e.NumeroCamion, e.TiempoMilisegundos,e.Bajan);
+                Agregar_Camion(e.Ruta, e.Parada, e.Capacidad, e.ABordo, e.NumeroCamion, e.TiempoParadaMilisegundos,e.Bajan);
             }
 
         }

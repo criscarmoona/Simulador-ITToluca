@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.System.Threading;
 
@@ -25,10 +26,11 @@ namespace Simulador.Logica
         public Generador()
         {
             IniciarSimulador();
-        }   
-        private void CrearCamion(int ruta)
+        }
+        private void CrearCamion(int ruta, int tiempoParadaMs, DateTimeOffset horaSalida)
         {
-            camiones.Nuevo(ruta, 40);
+            camiones.Nuevo(ruta, 40, tiempoParadaMs, horaSalida);
+            NuevoCamion?.Invoke(null, camiones.camiones.Last());
         }
         public void IniciarSimulador()
         {
@@ -39,10 +41,23 @@ namespace Simulador.Logica
         }
         void CambioHora(ThreadPoolTimer timer)
         {
-            if (horaSimulador > tiempoSalidaCamionesTenangoMinutos)
+            if (horaSimulador >= tiempoSalidaCamionesTenangoMinutos)
             {
-                CrearCamion(1);
+                int miliSegundosSalida = random.Next(1000, 5000);
+                CrearCamion(1, miliSegundosSalida, horaSimulador.AddMilliseconds(miliSegundosSalida));
                 tiempoSalidaCamionesTenangoMinutos = horaSimulador.AddMinutes(RandomDouble(1, 5));
+            }
+            if (camiones.camiones.Any(p => p.HoraSalida >= horaSimulador))
+            {
+                var camionSale = camiones.camiones.Where(p => p.HoraSalida >= horaSimulador).FirstOrDefault();
+                QuitarCamion?.Invoke(null, new QuitarCamion(camionSale.Ruta, camionSale.Parada));
+                camiones.camiones.Remove(camionSale);
+                camionSale.Parada = camionSale.Parada++;
+                if (camionSale.Parada < 4)
+                {
+                    int miliSegundosSalida = random.Next(1000, 5000);
+                    CrearCamion(camionSale.Parada, miliSegundosSalida, horaSimulador.AddMilliseconds(miliSegundosSalida));
+                }
             }
             horaSimulador = horaSimulador.AddMinutes(1);
             NuevaHora?.Invoke(null, horaSimulador);
