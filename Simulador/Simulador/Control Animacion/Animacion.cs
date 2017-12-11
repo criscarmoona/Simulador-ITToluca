@@ -47,24 +47,37 @@ namespace Simulador.Control_Animacion
             Poleo_datos = ThreadPoolTimer.CreatePeriodicTimer(Cargar_Personas, TimeSpan.FromMilliseconds(100));
         }
 
-        private void Gen_NuevaPersona(object sender, AgregarPersona e)
+        private async void Gen_NuevaPersona(object sender, AgregarPersona e)
         {
             if (e!=null)
             {
-                Agregar_Persona(e.Ruta, e.Parada);
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                                           () =>
+                                           {
+                                               Agregar_Persona(e.Ruta, e.Parada);
+                                           });
+                
             }
         }
 
-        private void Gen_QuitarCamion(object sender, QuitarCamion e)
+        private async void Gen_QuitarCamion(object sender, QuitarCamion e)
         {
-            Quitar_Camion(e.Ruta, e.Parada);
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                                          () =>
+                                          {
+                                              Quitar_Camion(e.Ruta, e.Parada);
+                                          });            
         }
 
-        private void Gen_NuevoCamion(object sender, AgregarCamion e)
+        private async void Gen_NuevoCamion(object sender, AgregarCamion e)
         {
             if (e!=null)
             {
-                Agregar_Camion(e.Ruta, e.Parada, e.Capacidad, e.ABordo, e.NumeroCamion, e.TiempoParadaMilisegundos,e.Bajan);
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                                         () =>
+                                         {
+                                             Agregar_Camion(e.Ruta, e.Parada, e.Capacidad, e.ABordo, e.NumeroCamion, e.TiempoParadaMilisegundos, e.Bajan);
+                                         });               
             }
 
         }
@@ -328,8 +341,7 @@ namespace Simulador.Control_Animacion
         }
         public async void Quitar_Camion(int ruta, int parada)
         {
-            ControlAnimacion _Control = Control_Global.Where(p => p.Ruta == ruta && p.Parada == parada ).First();
-            var Control = _Control.Camiones[0];
+            ControlAnimacion _Control = Control_Global.Where(p => p.Ruta == ruta && p.Parada == parada ).First();            
             TranslateTransform myTranslate = new TranslateTransform();
             Grid Lista = _Control.Grid_Camiones;
             myTranslate.X = 0;
@@ -337,14 +349,15 @@ namespace Simulador.Control_Animacion
 
             if (Lista.Children.Count > 0)
             {
+                var Control = _Control.Camiones[0];
                 _Control.Camiones.RemoveAt(_Control.Camiones.Count - 1);
-                Lista.Children.RemoveAt(Lista.Children.Count - 1);
+                Lista.Children.RemoveAt(0);
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                               () =>
                               {                                  
                                   if (Lista.Children.Count > 0)
                                   {
-                                      Lista.Children[0].RenderTransform = myTranslate;
+                                      Lista.Children[Lista.Children.Count - 1].RenderTransform = myTranslate;
                                   }
                               });
             }
