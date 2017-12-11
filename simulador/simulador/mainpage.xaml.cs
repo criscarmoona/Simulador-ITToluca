@@ -22,30 +22,38 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-// La plantilla de elemento Página en blanco está documentada en https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0xc0a
-
 namespace Simulador
 {
-    /// <summary>
-    /// Página vacía que se puede usar de forma independiente o a la que se puede navegar dentro de un objeto Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         ObservableCollection<string> data = new ObservableCollection<string>();
         Control_Datos Control_datos = new Control_Datos();
         public Animacion anima;
+        public Generador generador;
 
         public MainPage()
         {
+            generador = new Generador();
             this.InitializeComponent();
+            anima = new Animacion(this.BaseUri);
             
             Generador gen = new Generador();
             anima = new Animacion(this.BaseUri, gen);
             this.DataContext = this;
             Conectar_grid_DAtos();
             this.DataContext = anima;
-            anima.EventoActualizarDatos += Anima_EventoActualizarDatos;            
-            gen.NuevaHora += Gen_NuevaHora; ;
+            anima.EventoActualizarDatos += Anima_EventoActualizarDatos;
+            generador.NuevaHora += EventoCambioHora;
+            Hora.Text = generador.horaSimulador.ToString("hh:mm tt");
+        }
+
+        private async void EventoCambioHora(object sender, DateTime e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     Hora.Text = e.ToString("hh:mm tt");
+                 });
         }
 
         private async void Gen_NuevaHora(object sender, string e)
@@ -273,7 +281,7 @@ namespace Simulador
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             data.Add(DateTime.Now.ToString());
-            anima.Agregar_Persona( 1, 2);
+            anima.Agregar_Persona(1, 2);
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -287,10 +295,14 @@ namespace Simulador
 
         private async void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            anima.Animacion_Entrar_Persona(  1, 2, 50);
+            anima.Animacion_Entrar_Persona(1, 2, 50);
             //anima.Animacion_Salida_Persona( 1, 2, 5);
         }
 
+        private void volumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+                generador.CambiarVelocidad(e.NewValue);
+        }
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             anima.Animacion_Salida_Persona(1, 2, 50);
