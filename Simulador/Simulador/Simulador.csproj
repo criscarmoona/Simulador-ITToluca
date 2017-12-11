@@ -102,9 +102,11 @@
     <Compile Include="Control Animacion\Enum_TipoAnimacion.cs" />
     <Compile Include="Control Animacion\ControlAnimacion.cs" />
     <Compile Include="Control\Control Datos.cs" />
-    <Compile Include="Logica\Camion.cs" />
+    <Compile Include="Logica\Camiones.cs" />
+    <Compile Include="Logica\Tipos\AgregarCamion.cs" />
     <Compile Include="Logica\Generador.cs" />
-    <Compile Include="Logica\Persona.cs" />
+    <Compile Include="Logica\Tipos\AgregarPersona.cs" />
+    <Compile Include="Logica\Tipos\QuitarCamion.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
