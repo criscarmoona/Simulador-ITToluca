@@ -13,6 +13,8 @@ namespace Simulador.Control_Animacion
         public int Numero_Camion { get; set; }       
         public int Total_Cap_Camion { get; set; }
         public int Num_Abordo { get; set; }
+        public int Bajan { get; set; }
+        public float TiempoMilisegundos { get; set; }
         public Visibility Datos_visibles { get; set; } = Visibility.Collapsed;
     }
 }

@@ -659,7 +659,7 @@
 
         <Grid Grid.Column="1" Background="#252526">
             <StackPanel>
-                <TextBlock Text="06:00" Foreground="White" HorizontalAlignment="Center" FontSize="35" Margin="30"></TextBlock>
+                <TextBlock Text="06:00" x:Name="hora_" Foreground="White" HorizontalAlignment="Center" FontSize="35" Margin="30"></TextBlock>
                 <Slider Style="{StaticResource SliderStyle1}" x:Name="volumeSlider"  Foreground="White"   Background="White" Width="200" Maximum="4" Minimum="1"/>
                 <TextBlock   Margin="30,0,0,0" Foreground="White" HorizontalAlignment="Center" FontSize="20">
                     <Run  Text="Velocidad  " ></Run>
@@ -668,9 +668,11 @@
 
                 <ComboBox Margin="30 10 30 10" Header="Linea" Foreground="White" HorizontalAlignment="Stretch"></ComboBox>
                 <ComboBox Margin="30 10 30 10" Header="Ruta" Foreground="White" HorizontalAlignment="Stretch"></ComboBox>
+                <TextBox Margin="30 10 30 10" Header="Capacidad" Foreground="White"  HorizontalAlignment="Stretch"></TextBox>
                 <Button Content="añadir" Foreground="White" Click="Button_Click" HorizontalAlignment="Center"></Button>
                 <Button Content="quitar" Foreground="White" Click="Button_Click_1"  HorizontalAlignment="Center"></Button>
                 <Button Content="Animar" Foreground="White" Click="Button_Click_2" HorizontalAlignment="Center"></Button>
+                <Button Content="Animar" Foreground="White" Click="Button_Click_3"   HorizontalAlignment="Center"></Button>
 
             </StackPanel>
 

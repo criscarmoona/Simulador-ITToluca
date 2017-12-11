@@ -8,10 +8,12 @@ namespace Simulador.Logica
 {
     public class Generador
     {
-        public EventHandler<Persona> NuevaPersona { get; set; }
-        public EventHandler<Camion> NuevoCamion { get; set; }
-        public EventHandler<int> QuitarCamion { get; set; }
-        public EventHandler<string> NuevaHora { get; set; }
+
+
+        public event EventHandler<Persona> NuevaPersona;
+        public event EventHandler<Camion> NuevoCamion;
+        public event EventHandler<int> QuitarCamion;
+        public event EventHandler<string> NuevaHora;
 
         ThreadPoolTimer dispatcherTimer;
 
