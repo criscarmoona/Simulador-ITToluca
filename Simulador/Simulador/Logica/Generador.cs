@@ -31,8 +31,9 @@ namespace Simulador.Logica
         {
             camiones.Nuevo(ruta, 40, tiempoParadaMs, horaSalida, parada);
             Imprimir("NuevoCamion r: " + ruta + " p: " + parada);
-            //NuevoCamion?.Invoke(null, camiones.camiones.Last());
+            NuevoCamion?.Invoke(null, camiones.camiones.FirstOrDefault());
         }
+
         public void IniciarSimulador()
         {
             multiplicadorTiempo = 1;
@@ -66,6 +67,7 @@ namespace Simulador.Logica
                 if (camionSale.Parada < 4)
                 {
                     int miliSegundosSalida = random.Next(1000, 5000);
+                    Imprimir("Cambio ruta con salida: " + horaSimulador.AddMilliseconds(miliSegundosSalida));
                     CrearCamion(camionSale.Ruta, camionSale.Parada, miliSegundosSalida, horaSimulador.AddMilliseconds(miliSegundosSalida));
                 }
             }
@@ -74,7 +76,7 @@ namespace Simulador.Logica
         public void QuitarCamionV(AgregarCamion camion)
         {
             Imprimir("Quitar Camion r: " + camion.Ruta + " p: " + camion.Parada);
-            //QuitarCamion?.Invoke(null, new QuitarCamion(camion.Ruta, camion.Parada));
+            QuitarCamion?.Invoke(null, new QuitarCamion(camion.Ruta, camion.Parada));
         }
 
         public void CambiarVelocidad(double multiplicador)
