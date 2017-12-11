@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simulador.Logica;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.System.Threading;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -27,145 +29,192 @@ namespace Simulador.Control_Animacion
         private Double centro_maximo = 200;
         private Uri url;
         public int[] alto = new int[] { 1,2};
+        Generador gen;
+        ThreadPoolTimer Poleo_datos;
+        bool Calculando_datos;
+        public string[] dato_ocupado = new string[] { "", "","","","","","","","" };
 
-        public Animacion( Uri _uri)
+
+
+
+        public Animacion( Uri _uri, Generador _gen)
         {
             url = _uri;
-           
+            gen = _gen;
+            gen.NuevoCamion += Gen_NuevoCamion;
+            gen.QuitarCamion += Gen_QuitarCamion;
+            gen.NuevaPersona += Gen_NuevaPersona;
+            Poleo_datos = ThreadPoolTimer.CreatePeriodicTimer(Cargar_Personas, TimeSpan.FromMilliseconds(100));
         }
 
-        public async void Animacion_Entrar_Persona( int ruta , int parada, int velocidad)
+        private void Gen_NuevaPersona(object sender, Persona e)
+        {
+            if (e!=null)
+            {
+                Agregar_Persona(e.Ruta, e.Parada);
+            }
+        }
+
+        private void Gen_QuitarCamion(object sender, int e)
+        {
+            //Quitar_Camion(int ruta, int parada);
+        }
+
+        private void Gen_NuevoCamion(object sender, Camion e)
+        {
+            if (e!=null)
+            {
+                Agregar_Camion(e.Ruta, e.Parada, e.Capacidad, e.ABordo, e.NumeroCamion, e.TiempoMilisegundos,e.Bajan);
+            }
+
+        }
+
+        public async Task<bool>  Animacion_Entrar_Persona( int ruta , int parada, int velocidad)
         {
             TranslateTransform myTranslate = new TranslateTransform();
             ControlAnimacion _Control = Control_Global.Where(p => p.Ruta == ruta && p.Parada == parada).First();
             var _posicion = _Control.Variables_Animaciones.Where(p => p.Tipo == Enum_Destinos.Entrada).First();
             var Control = _Control.Personas;
             Grid Lista = Control.Grid_Personas;
-            Double tope = 0;
-            alto[1]++;
-
-            if (Lista.Children.Count > 0 && _posicion.Control_numero < Lista.Children.Count)
+            if (_Control.Camiones.Count>0)
             {
-
-                var imagen = Lista.Children[_posicion.Control_numero];
-                _posicion.Control_numero++;
-
-                for (int i = 0; i < 50; i++)
+                if (_Control.Camiones[0].Num_Abordo < _Control.Camiones[0].Total_Cap_Camion)
                 {
-                    await Task.Delay(velocidad);
-                    if (myTranslate.Y > (-70))
+                   
+                    if (Lista.Children.Count > 0 && _posicion.Control_numero < Lista.Children.Count)
                     {
-                        myTranslate.Y = myTranslate.Y - Desplazamiento_persona;
-                        if (myTranslate.Y> -70)
-                        {
-                            myTranslate.Y = -70;
-                        }
-                    }
-                    else
-                    {
-                        myTranslate.Y = -70;
-                        tope = myTranslate.Y;
-                        myTranslate.X = myTranslate.X + Desplazamiento_persona;
-                        if (myTranslate.X >= centro_maximo)
-                        {
-                            i = 50;
-                        }
-                    }
-                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                              () =>
-                              {
-                                  imagen.RenderTransform = myTranslate;
-                              });
-                }
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                              () =>
-                              {
-                                  Lista.Children.RemoveAt(0);
-                              });
-                Debug.WriteLine("total " + myTranslate.Y);
-                _posicion.Control_numero--;
-                _posicion.Posicion = _posicion.Posicion - separacion;
-                if (Lista.Children.Count > 0)
-                {
-                    int conteo = 0;
-                    foreach (var item in Lista.Children)
-                    {
-                        myTranslate = (TranslateTransform)item.RenderTransform;
-                        if (myTranslate.Y > tope)
-                        {
+                        _Control.Camiones[0].Num_Abordo++;
+                        _Control.Personas.Num_Personsa_Espera--;                        
+                        Double tope = 0;
+                        alto[1]++;
 
-                            if (conteo < Max_imagen)
+                        var imagen = Lista.Children[_posicion.Control_numero];
+                        _posicion.Control_numero++;
+
+                        for (int i = 0; i < 50; i++)
+                        {
+                            await Task.Delay(velocidad);
+                            if (myTranslate.Y > (-70))
                             {
-                                item.Visibility = Visibility.Visible;
+                                myTranslate.Y = myTranslate.Y - Desplazamiento_persona;
+                                if (myTranslate.Y > -70)
+                                {
+                                    myTranslate.Y = -70;
+                                }
                             }
                             else
                             {
-                                item.Visibility = Visibility.Collapsed;
+                                myTranslate.Y = -70;
+                                tope = myTranslate.Y;
+                                myTranslate.X = myTranslate.X + Desplazamiento_persona;
+                                if (myTranslate.X >= centro_maximo)
+                                {
+                                    i = 50;
+                                }
                             }
-                            Debug.WriteLine(myTranslate.Y);
-                            myTranslate.Y = myTranslate.Y - separacion;
-                            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                              () =>
-                              {
-                                  imagen.RenderTransform = myTranslate;
-                              });
+                                          imagen.RenderTransform = myTranslate;
                         }
-                        conteo++;
+                         Lista.Children.RemoveAt(0);
+                        Debug.WriteLine("total " + myTranslate.Y);
+                        _posicion.Control_numero--;
+                        _posicion.Posicion = _posicion.Posicion - separacion;
+                        if (Lista.Children.Count > 0)
+                        {
+                            int conteo = 0;
+                            foreach (var item in Lista.Children)
+                            {
+                                myTranslate = (TranslateTransform)item.RenderTransform;
+                                if (myTranslate.Y > tope)
+                                {                                    
+                                    Debug.WriteLine(myTranslate.Y);
+                                    myTranslate.Y = conteo  *10;
+                                    imagen.RenderTransform = myTranslate;
+                                    if (conteo < Max_imagen&& myTranslate.Y< Max_imagen*10)
+                                    {
+                                        item.Visibility = Visibility.Visible;
+                                    }
+                                    else
+                                    {
+                                        item.Visibility = Visibility.Collapsed;
+                                    }
+                                }
+                                conteo++;
 
+                            }
+                        }                        
+                        EventoActualizarDatos?.Invoke(this, Control_Global);
+                        return true;
                     }
+                    return false;
                 }
-                _Control.Personas.Num_Personsa_Espera--;
-                _Control.Camiones[0].Num_Abordo++;
-                EventoActualizarDatos?.Invoke(this, Control_Global);
-
+                else
+                {
+                    return false;
+                }
+            }else
+            {
+                return false;
             }
         }
-        public async void Animacion_Salida_Persona( int ruta, int parada, int velocidad)
+        public async Task<bool>  Animacion_Salida_Persona( int ruta, int parada, int velocidad)
         {
             TranslateTransform myTranslate = new TranslateTransform();
             ControlAnimacion _Control = Control_Global.Where(p => p.Ruta == ruta && p.Parada == parada).First();
             var Control = _Control.Personas;
-            Grid Lista = Control.Grid_Personas_SALIDA;
-
-            Image img = new Image();
-            img.VerticalAlignment = VerticalAlignment.Center;
-            BitmapImage bitmapImage = new BitmapImage();
-            img.Width = bitmapImage.DecodePixelWidth = tamaño_imagen;
-            myTranslate.X = myTranslate.X + centro_maximo;
-            img.RenderTransform = myTranslate;
-            bitmapImage.UriSource = new Uri(url, "Assets/Persona3.png");
-            img.Source = bitmapImage;
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                               () =>
-                               {
-                                   Lista.Children.Add(img);
-                               });
-
-            for (int i = 0; i < 25; i++)
+            if (_Control.Camiones.Count > 0)
             {
-                await Task.Delay(velocidad);
-                myTranslate.X = myTranslate.X - Desplazamiento_persona;
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                                    () =>
-                                    {
-                                        img.RenderTransform = myTranslate;
-                                    });
+                if (_Control.Camiones[0].Num_Abordo > 0)
+                {
+                    _Control.Camiones[0].Num_Abordo--;
+                    Grid Lista = Control.Grid_Personas_SALIDA;
+                    Image img = new Image();
+                    img.VerticalAlignment = VerticalAlignment.Center;
+                    BitmapImage bitmapImage = new BitmapImage();
+                    img.Width = bitmapImage.DecodePixelWidth = tamaño_imagen;
+                    myTranslate.X = myTranslate.X + centro_maximo;
+                    img.RenderTransform = myTranslate;
+                    bitmapImage.UriSource = new Uri(url, "Assets/Persona3.png");
+                    img.Source = bitmapImage;
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                                       () =>
+                                       {
+                                           Lista.Children.Add(img);
+                                       });
 
+                    for (int i = 0; i < 8; i++)
+                    {
+                        await Task.Delay(velocidad);
+                        myTranslate.X = myTranslate.X - Desplazamiento_persona;
+                        await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                                            () =>
+                                            {
+                                                img.RenderTransform = myTranslate;
+                                            });
+
+                    }
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                                        () =>
+                                        {
+                                            Lista.Children.Remove(img);
+                                        });
+
+                    
+                    EventoActualizarDatos?.Invoke(this, Control_Global);
+                    return true;
+                }
+                else { return false; }
             }
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                                () =>
-                                {
-                                    Lista.Children.Remove(img);
-                                });
-            
-            _Control.Camiones[0].Num_Abordo--;
-            EventoActualizarDatos?.Invoke(this, Control_Global);
+            else
+            {
+                return false;
+            }
         }
         public async void Agregar_Persona( int ruta, int parada) 
         {
             ControlAnimacion _Control = Control_Global.Where(p => p.Ruta == ruta && p.Parada == parada).First();
-            var _posicion = _Control.Variables_Animaciones.Where(p => p.Tipo == Enum_Destinos.Entrada).First();
+            var _posicion = _Control.Variables_Animaciones.Where(p => p.Tipo == Enum_Destinos.Entrada).First();          
             var Control = _Control.Personas;
+            _Control.Personas.Num_Personsa_Espera = _Control.Personas.Num_Personsa_Espera+1;
             Grid Lista = Control.Grid_Personas;
             Image img = new Image();
             img.VerticalAlignment = VerticalAlignment.Top;
@@ -202,8 +251,7 @@ namespace Simulador.Control_Animacion
                             {
                                 Lista.Children.Add(img);
                             });
-            _posicion.Posicion = _posicion.Posicion + separacion;
-            _Control.Personas.Num_Personsa_Espera++;
+            _posicion.Posicion = _posicion.Posicion + separacion;           
             EventoActualizarDatos?.Invoke(this, Control_Global);
         }
         public  async void Quitar_Persona( int ruta, int parada)
@@ -230,11 +278,11 @@ namespace Simulador.Control_Animacion
                 _posicion.Posicion = 0;
             }
         }
-        public async void Agregar_Camion(int ruta, int parada,int capacidad, int personas, int identifi)
+        public async void Agregar_Camion(int ruta, int parada,int capacidad, int personas, int identifi, float TiempoMilisegundos,int bajan)
         {
             TranslateTransform myTranslate = new TranslateTransform();
             ControlAnimacion _Control = Control_Global.Where(p => p.Ruta == ruta && p.Parada == parada).First();
-            _Control.Camiones.Add(new Control_Camion {Total_Cap_Camion= capacidad ,Num_Abordo= personas,Numero_Camion= identifi});
+            _Control.Camiones.Add(new Control_Camion {Total_Cap_Camion= capacidad ,Num_Abordo= personas,Numero_Camion= identifi,TiempoMilisegundos= TiempoMilisegundos,Bajan=bajan });
             Grid Lista = _Control.Grid_Camiones;
             Image img = new Image();
             img.VerticalAlignment = VerticalAlignment.Center;
@@ -290,15 +338,93 @@ namespace Simulador.Control_Animacion
             if (Lista.Children.Count > 0)
             {
                 _Control.Camiones.RemoveAt(_Control.Camiones.Count - 1);
+                Lista.Children.RemoveAt(Lista.Children.Count - 1);
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                               () =>
-                              {
-                                  Lista.Children.RemoveAt(Lista.Children.Count-1);
-                                  Lista.Children[0].RenderTransform = myTranslate;
+                              {                                  
+                                  if (Lista.Children.Count > 0)
+                                  {
+                                      Lista.Children[0].RenderTransform = myTranslate;
+                                  }
                               });
             }
             _Control.Num_Camiones_Espera = Lista.Children.Count;
             EventoActualizarDatos?.Invoke(this, Control_Global);
         }
+        public async void Cargar_Personas(ThreadPoolTimer timer)
+        {
+            try
+            {
+
+           
+                int conteo = 0;
+                foreach (var item in Control_Global)
+                {
+                    if (item.Camiones.Count > 0)
+                    {
+                        if (item.Personas.Num_Personsa_Espera > 0 || item.Camiones[0].Num_Abordo >= item.Camiones[0].Bajan)
+                        {
+                            if (item.Camiones[0].Num_Abordo < item.Camiones[0].Total_Cap_Camion || item.Camiones[0].Num_Abordo >= item.Camiones[0].Bajan)
+                            {
+                                if (dato_ocupado[conteo]=="")
+                                {
+                                    dato_ocupado[conteo] = item.Ruta.ToString() + item.Parada.ToString();
+
+                                    int bajar = item.Camiones[0].Bajan;
+                                    Double tiempo = item.Camiones[0].TiempoMilisegundos / item.Camiones[0].Total_Cap_Camion;
+                                    int tiempo_entero = (int)Math.Truncate(tiempo);
+                                    if (item.Camiones[0].Num_Abordo >= item.Camiones[0].Bajan&& item.Camiones[0].Bajan>0)
+                                    {                                                                        
+                                        for (int i = 0; i < bajar; i++)
+                                        {
+                                            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                                             () =>
+                                             {
+                                                 var a = Animacion_Salida_Persona(item.Ruta, item.Parada, 1);
+                                             });
+
+                                            await Task.Delay(tiempo_entero*2);
+                                        }
+                                        item.Camiones[0].Bajan=0;
+                                    }
+                                    if (item.Camiones[0].Num_Abordo < item.Camiones[0].Total_Cap_Camion)
+                                    {
+
+                                        int veces = item.Camiones[0].Total_Cap_Camion - item.Camiones[0].Num_Abordo;
+                                        int aux = item.Personas.Num_Personsa_Espera;
+                                        if (veces < aux)
+                                        {
+                                            veces = aux;
+                                        }
+                                        for (int i = 0; i < veces; i++)
+                                        {
+
+                                            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                                             () =>
+                                             {
+                                                 var a = Animacion_Entrar_Persona(item.Ruta, item.Parada, 1);
+                                             });
+
+                                            await Task.Delay(tiempo_entero * 2 + 10);
+
+                                        }
+                                    }
+                                    dato_ocupado[conteo] = "";
+                                }
+
+                            }
+                        }
+
+                    }
+                     conteo++;
+                }
+            }
+            catch (Exception)
+            {
+                
+            }
+
+        }
+
     }
 }

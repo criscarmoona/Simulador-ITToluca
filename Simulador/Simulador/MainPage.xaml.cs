@@ -35,12 +35,11 @@ namespace Simulador
         {
             generador = new Generador();
             this.InitializeComponent();
-            anima = new Animacion(this.BaseUri);
+            anima = new Animacion(this.BaseUri, generador);
             this.DataContext = this;
             Conectar_grid_DAtos();
             this.DataContext = anima;
             anima.EventoActualizarDatos += Anima_EventoActualizarDatos;
-            generador.NuevaHora += EventoCambioHora;
             Hora.Text = generador.horaSimulador.ToString("hh:mm tt");
         }
 
@@ -67,7 +66,12 @@ namespace Simulador
                                       cap_max_auto_1_1.Text = parada1_1.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_1_1.Text = parada1_1.Camiones[0].Numero_Camion.ToString();
                                   }
-                                  else num_linea_1_1.Text = "";
+                                  else
+                                  {
+                                      num_linea_1_1.Text = "";
+                                      cap_auto_1_1.Text ="0";
+                                      cap_max_auto_1_1.Text = "0";
+                                  }
 
                                   var parada1_2 = e.Where(p => p.Ruta == 1 && p.Parada == 2).First();
                                   num_personas_1_2.Text = parada1_2.Personas.Num_Personsa_Espera.ToString();
@@ -78,7 +82,12 @@ namespace Simulador
                                       cap_max_auto_1_2.Text = parada1_2.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_1_2.Text = parada1_2.Camiones[0].Numero_Camion.ToString();
                                   }
-                                  else num_linea_1_2.Text = "";
+                                  else
+                                  {
+                                      num_linea_1_2.Text = "";
+                                      cap_auto_1_2.Text = "0";
+                                      cap_max_auto_1_2.Text = "0";
+                                  }
 
                                   var parada1_3 = e.Where(p => p.Ruta == 1 && p.Parada == 3).First();
                                   num_personas_1_3.Text = parada1_3.Personas.Num_Personsa_Espera.ToString();
@@ -89,7 +98,12 @@ namespace Simulador
                                       cap_max_auto_1_3.Text = parada1_3.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_1_3.Text = parada1_3.Camiones[0].Numero_Camion.ToString();
                                   }
-                                  else num_linea_1_3.Text = "";
+                                  else
+                                  {
+                                      num_linea_1_3.Text = "";
+                                      cap_auto_1_3.Text = "0";
+                                      cap_max_auto_1_3.Text = "0";
+                                  }
 
                                   var parada2_1 = e.Where(p => p.Ruta == 2 && p.Parada == 1).First();
                                   num_personas_2_1.Text = parada2_1.Personas.Num_Personsa_Espera.ToString();
@@ -100,7 +114,12 @@ namespace Simulador
                                       cap_max_auto_2_1.Text = parada2_1.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_2_1.Text = parada2_1.Camiones[0].Numero_Camion.ToString();
                                   }
-                                  else num_linea_2_1.Text = "";
+                                  else
+                                  {
+                                      num_linea_2_1.Text = "";
+                                      cap_auto_2_1.Text = "0";
+                                      cap_max_auto_2_1.Text = "0";
+                                  }
 
 
                                   var parada2_2 = e.Where(p => p.Ruta == 2 && p.Parada == 2).First();
@@ -112,7 +131,12 @@ namespace Simulador
                                       cap_max_auto_2_2.Text = parada2_2.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_2_2.Text = parada2_2.Camiones[0].Numero_Camion.ToString();
                                   }
-                                  else num_linea_2_2.Text = "";
+                                  else
+                                  {
+                                      num_linea_2_2.Text = "";
+                                      cap_auto_2_2.Text = "0";
+                                      cap_max_auto_2_2.Text = "0";
+                                  }
 
 
                                   var parada2_3 = e.Where(p => p.Ruta == 2 && p.Parada == 3).First();
@@ -124,7 +148,12 @@ namespace Simulador
                                       cap_max_auto_2_3.Text = parada2_3.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_2_3.Text = parada2_3.Camiones[0].Numero_Camion.ToString();
                                   }
-                                  else num_linea_2_3.Text = "";
+                                  else
+                                  {
+                                      num_linea_2_3.Text = "";
+                                      cap_auto_2_3.Text = "0";
+                                      cap_max_auto_2_3.Text = "0";
+                                  }
 
                                   var parada3_1 = e.Where(p => p.Ruta == 3 && p.Parada == 1).First();
                                   num_personas_3_1.Text = parada3_1.Personas.Num_Personsa_Espera.ToString();
@@ -135,7 +164,12 @@ namespace Simulador
                                       cap_max_auto_3_1.Text = parada3_1.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_3_1.Text = parada3_1.Camiones[0].Numero_Camion.ToString();
                                   }
-                                  else num_linea_3_1.Text = "";
+                                  else
+                                  {
+                                      num_linea_3_1.Text = "";
+                                      cap_auto_3_1.Text = "0";
+                                      cap_max_auto_3_1.Text = "0"; 
+                                  }
 
                                   var parada3_2 = e.Where(p => p.Ruta == 3 && p.Parada == 2).First();
                                   num_personas_3_2.Text = parada3_2.Personas.Num_Personsa_Espera.ToString();
@@ -146,7 +180,12 @@ namespace Simulador
                                       cap_max_auto_3_2.Text = parada3_2.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_3_2.Text = parada3_2.Camiones[0].Numero_Camion.ToString();
                                   }
-                                  else num_linea_3_2.Text = "";
+                                  else
+                                  {
+                                      num_linea_3_2.Text = "";
+                                      cap_auto_3_2.Text = "0";
+                                      cap_max_auto_3_2.Text = "0";
+                                  }
 
                                   var parada3_3 = e.Where(p => p.Ruta == 3 && p.Parada == 3).First();
                                   num_personas_3_3.Text = parada3_3.Personas.Num_Personsa_Espera.ToString();
@@ -157,7 +196,12 @@ namespace Simulador
                                       cap_max_auto_3_3.Text = parada3_3.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_3_3.Text = parada3_3.Camiones[0].Numero_Camion.ToString();
                                   }
-                                  else num_linea_3_3.Text = "";
+                                  else
+                                  {
+                                      num_linea_3_3.Text = "";
+                                      cap_auto_3_3.Text = "0";
+                                      cap_max_auto_3_3.Text = "0";
+                                  }
 
                               });
         }
@@ -266,18 +310,22 @@ namespace Simulador
                 Grid_Camiones = camion_3_3
             });
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             data.Add(DateTime.Now.ToString());
-            anima.Agregar_Persona(1, 2);
+            for (int i = 0; i < 75; i++)
+            {
+                anima.Agregar_Persona(1, 2);
+                await Task.Delay(100);
+            }
+            
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             //anima.Quitar_Persona(ruta1_2, anima.Control_Global[0]);
 
-            anima.Agregar_Camion(1, 2, 40, 0, 1253);
-            anima.Quitar_Persona(1, 2);
+            anima.Agregar_Camion(1,2,40,10,1253,1000,9);
 
 
         }
@@ -291,6 +339,15 @@ namespace Simulador
         private void volumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
                 generador.CambiarVelocidad(e.NewValue);
+        }
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            anima.Animacion_Salida_Persona(1, 2, 50);
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            anima.Quitar_Camion(1, 2);
         }
     }
 }

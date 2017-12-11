@@ -680,9 +680,13 @@
 
                 <ComboBox Margin="30 10 30 10" Header="Linea" Foreground="White" HorizontalAlignment="Stretch"></ComboBox>
                 <ComboBox Margin="30 10 30 10" Header="Ruta" Foreground="White" HorizontalAlignment="Stretch"></ComboBox>
+                <TextBox Margin="30 10 30 10" Header="Capacidad" Foreground="White"  HorizontalAlignment="Stretch"></TextBox>
                 <Button Content="añadir" Foreground="White" Click="Button_Click" HorizontalAlignment="Center"></Button>
-                <Button Content="quitar" Foreground="White" Click="Button_Click_1"  HorizontalAlignment="Center"></Button>
+                
                 <Button Content="Animar" Foreground="White" Click="Button_Click_2" HorizontalAlignment="Center"></Button>
+                <Button Content="Animar" Foreground="White" Click="Button_Click_3"   HorizontalAlignment="Center"></Button>
+                <Button Content="Añadir Camion" Foreground="White" Click="Button_Click_1"  HorizontalAlignment="Center"></Button>
+                <Button Content="quitar camion" Foreground="White" Click="Button_Click_4"   HorizontalAlignment="Center"></Button>
 
             </StackPanel>
 
