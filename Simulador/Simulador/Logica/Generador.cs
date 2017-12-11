@@ -29,7 +29,7 @@ namespace Simulador.Logica
         void cambioHora(ThreadPoolTimer timer)
         {
             horaSimulador = horaSimulador.AddMinutes(1);
-            NuevaHora?.Invoke(null, horaSimulador);
+            NuevaHora?.Invoke(null, horaSimulador.Hour.ToString());
             Imprimir(horaSimulador.ToString("hh:mm:ss tt") + " multiplicador: " + multiplicadorTiempo);
         }
 
