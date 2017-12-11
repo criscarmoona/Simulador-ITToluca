@@ -2,6 +2,7 @@
 {
     public class Persona
     {
-        public Enum_Destinos Destino { get; set; }
+        public int Ruta { get; set; }
+        public int Parada { get; set; }
     }
 }
