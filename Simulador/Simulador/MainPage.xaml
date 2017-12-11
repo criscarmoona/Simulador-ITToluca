@@ -659,11 +659,23 @@
 
         <Grid Grid.Column="1" Background="#252526">
             <StackPanel>
-                <TextBlock Text="06:00" x:Name="hora_" Foreground="White" HorizontalAlignment="Center" FontSize="35" Margin="30"></TextBlock>
-                <Slider Style="{StaticResource SliderStyle1}" x:Name="volumeSlider"  Foreground="White"   Background="White" Width="200" Maximum="4" Minimum="1"/>
+                <TextBlock x:Name="Hora"
+                           Foreground="White" 
+                           HorizontalAlignment="Center" 
+                           FontSize="35" 
+                           Margin="30"/>
+                <Slider Style="{StaticResource SliderStyle1}"
+                        x:Name="volumeSlider"  
+                        Foreground="White"   
+                        Background="White"
+                        Width="200"
+                        Maximum="4"
+                        Minimum="1"
+                        ValueChanged="volumeSlider_ValueChanged"/>
                 <TextBlock   Margin="30,0,0,0" Foreground="White" HorizontalAlignment="Center" FontSize="20">
                     <Run  Text="Velocidad  " ></Run>
-                    <Run Text="x4"></Run>
+                    <Run Text="x"></Run>
+                     <Run Text="{Binding ElementName=volumeSlider, Path=Value}"></Run>
                 </TextBlock>
 
                 <ComboBox Margin="30 10 30 10" Header="Linea" Foreground="White" HorizontalAlignment="Stretch"></ComboBox>
