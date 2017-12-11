@@ -22,6 +22,7 @@ namespace Simulador.Control_Animacion
         private int separacion = 13;
         private int tamaño_imagen = 35;
         private int Max_imagen = 6;
+        private int Desplazamiento_persona = 30;
 
         private Double centro_maximo = 200;
         private Uri url;
@@ -54,14 +55,18 @@ namespace Simulador.Control_Animacion
                     await Task.Delay(velocidad);
                     if (myTranslate.Y > (-70))
                     {
-                        myTranslate.Y = myTranslate.Y - 10;
+                        myTranslate.Y = myTranslate.Y - Desplazamiento_persona;
+                        if (myTranslate.Y> -70)
+                        {
+                            myTranslate.Y = -70;
+                        }
                     }
                     else
                     {
                         myTranslate.Y = -70;
                         tope = myTranslate.Y;
-                        myTranslate.X = myTranslate.X + 10;
-                        if (myTranslate.X == centro_maximo)
+                        myTranslate.X = myTranslate.X + Desplazamiento_persona;
+                        if (myTranslate.X >= centro_maximo)
                         {
                             i = 50;
                         }
@@ -139,7 +144,7 @@ namespace Simulador.Control_Animacion
             for (int i = 0; i < 25; i++)
             {
                 await Task.Delay(velocidad);
-                myTranslate.X = myTranslate.X - 10;
+                myTranslate.X = myTranslate.X - Desplazamiento_persona;
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                                     () =>
                                     {
