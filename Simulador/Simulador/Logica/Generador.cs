@@ -27,41 +27,54 @@ namespace Simulador.Logica
         {
             IniciarSimulador();
         }
-        private void CrearCamion(int ruta, int tiempoParadaMs, DateTimeOffset horaSalida)
+        private void CrearCamion(int ruta, int parada, int tiempoParadaMs, DateTimeOffset horaSalida)
         {
-            camiones.Nuevo(ruta, 40, tiempoParadaMs, horaSalida);
-            NuevoCamion?.Invoke(null, camiones.camiones.Last());
+            camiones.Nuevo(ruta, 40, tiempoParadaMs, horaSalida, parada);
+            Imprimir("NuevoCamion r: " + ruta + " p: " + parada);
+            //NuevoCamion?.Invoke(null, camiones.camiones.Last());
         }
         public void IniciarSimulador()
         {
             multiplicadorTiempo = 1;
             tiempoSalidaCamionesTenangoMinutos = horaSimulador.AddMinutes(RandomDouble(1, 5));
+            Imprimir("Tiempo para siguiente camion : " + tiempoSalidaCamionesTenangoMinutos);
             corriendoSimulador = true;
             temporizador = ThreadPoolTimer.CreatePeriodicTimer(CambioHora, TimeSpan.FromMilliseconds(CalcularPeriodo()));
         }
         void CambioHora(ThreadPoolTimer timer)
         {
+            horaSimulador = horaSimulador.AddMinutes(1);
+            NuevaHora?.Invoke(null, horaSimulador);
+            Imprimir("Cambianido hora: " + horaSimulador);
             if (horaSimulador >= tiempoSalidaCamionesTenangoMinutos)
             {
                 int miliSegundosSalida = random.Next(1000, 5000);
-                CrearCamion(1, miliSegundosSalida, horaSimulador.AddMilliseconds(miliSegundosSalida));
+                Imprimir("Creando camion con salida: " + horaSimulador.AddMilliseconds(miliSegundosSalida));
+
+                CrearCamion(1, 1, miliSegundosSalida, horaSimulador.AddMilliseconds(miliSegundosSalida));
+
                 tiempoSalidaCamionesTenangoMinutos = horaSimulador.AddMinutes(RandomDouble(1, 5));
+                Imprimir("Tiempo para siguiente camion : " + tiempoSalidaCamionesTenangoMinutos);
             }
-            if (camiones.camiones.Any(p => p.HoraSalida >= horaSimulador))
+            if (camiones.camiones.Any(p => p.HoraSalida <= horaSimulador))
             {
-                var camionSale = camiones.camiones.Where(p => p.HoraSalida >= horaSimulador).FirstOrDefault();
-                QuitarCamion?.Invoke(null, new QuitarCamion(camionSale.Ruta, camionSale.Parada));
+                Imprimir("Cambniando ruta camion");
+                var camionSale = camiones.camiones.Where(p => p.HoraSalida <= horaSimulador).FirstOrDefault();
+                QuitarCamionV(camionSale);
                 camiones.camiones.Remove(camionSale);
-                camionSale.Parada = camionSale.Parada++;
+                camionSale.Parada = camionSale.Parada+1;
                 if (camionSale.Parada < 4)
                 {
                     int miliSegundosSalida = random.Next(1000, 5000);
-                    CrearCamion(camionSale.Parada, miliSegundosSalida, horaSimulador.AddMilliseconds(miliSegundosSalida));
+                    CrearCamion(camionSale.Ruta, camionSale.Parada, miliSegundosSalida, horaSimulador.AddMilliseconds(miliSegundosSalida));
                 }
             }
-            horaSimulador = horaSimulador.AddMinutes(1);
-            NuevaHora?.Invoke(null, horaSimulador);
             Imprimir(horaSimulador.ToString("hh:mm:ss tt") + " multiplicador: " + multiplicadorTiempo);
+        }
+        public void QuitarCamionV(AgregarCamion camion)
+        {
+            Imprimir("Quitar Camion r: " + camion.Ruta + " p: " + camion.Parada);
+            //QuitarCamion?.Invoke(null, new QuitarCamion(camion.Ruta, camion.Parada));
         }
 
         public void CambiarVelocidad(double multiplicador)
