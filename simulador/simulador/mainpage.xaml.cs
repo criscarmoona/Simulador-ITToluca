@@ -35,15 +35,11 @@ namespace Simulador
         {
             generador = new Generador();
             this.InitializeComponent();
-            anima = new Animacion(this.BaseUri);
-            
-            Generador gen = new Generador();
-            anima = new Animacion(this.BaseUri, gen);
+            anima = new Animacion(this.BaseUri, generador);
             this.DataContext = this;
             Conectar_grid_DAtos();
             this.DataContext = anima;
             anima.EventoActualizarDatos += Anima_EventoActualizarDatos;
-            generador.NuevaHora += EventoCambioHora;
             Hora.Text = generador.horaSimulador.ToString("hh:mm tt");
         }
 
@@ -54,15 +50,6 @@ namespace Simulador
                  {
                      Hora.Text = e.ToString("hh:mm tt");
                  });
-        }
-
-        private async void Gen_NuevaHora(object sender, string e)
-        {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                            () =>
-                            {
-                                hora_.Text = e;
-                            });            
         }
         private async void Anima_EventoActualizarDatos(object sender, ObservableCollection<ControlAnimacion> e)
         {
@@ -288,7 +275,7 @@ namespace Simulador
         {
             //anima.Quitar_Persona(ruta1_2, anima.Control_Global[0]);
 
-            anima.Agregar_Camion(1,2,10,0,1253);
+            anima.Agregar_Camion(1,2,10,0,1253,1000);
 
 
         }
