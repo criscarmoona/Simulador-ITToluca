@@ -34,9 +34,6 @@ namespace Simulador.Control_Animacion
         bool Calculando_datos;
         public string[] dato_ocupado = new string[] { "", "","","","","","","","" };
 
-
-
-
         public Animacion( Uri _uri, Generador _gen)
         {
             url = _uri;
@@ -350,14 +347,19 @@ namespace Simulador.Control_Animacion
             if (Lista.Children.Count > 0)
             {
                 var Control = _Control.Camiones[0];
-                _Control.Camiones.RemoveAt(_Control.Camiones.Count - 1);
-                Lista.Children.RemoveAt(0);
+                _Control.Camiones.RemoveAt(0);
+                Lista.Children.RemoveAt(Lista.Children.Count - 1);
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                               () =>
                               {                                  
                                   if (Lista.Children.Count > 0)
                                   {
                                       Lista.Children[Lista.Children.Count - 1].RenderTransform = myTranslate;
+                                      Lista.Children[Lista.Children.Count - 1].Visibility = Visibility.Visible;
+                                      if (Lista.Children.Count > 1)
+                                      {
+                                          Lista.Children[Lista.Children.Count - 2].Visibility = Visibility.Visible;
+                                      }
                                   }
                               });
             }
@@ -438,6 +440,12 @@ namespace Simulador.Control_Animacion
             }
 
         }
+        public int RandomInt(int minimo, int maximo)
+        {
+            Random random = new Random();
+            return random.Next(minimo, maximo);
+        }
+
 
     }
 }
