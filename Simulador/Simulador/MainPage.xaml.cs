@@ -41,8 +41,41 @@ namespace Simulador
             this.DataContext = anima;
             anima.EventoActualizarDatos += Anima_EventoActualizarDatos;
             Hora.Text = generador.horaSimulador.ToString("hh:mm tt");
+            generador.NuevaHora += EventoCambioHora;
+            generador.NuevoEventoTenango += NuevoEventoTenangoEnLog;
+            generador.NuevoEventoToluca += NuevoEventoTolucaEnLog;
+            generador.NuevoEventoTerminal += NuevoEventoTerminalEnLog;
         }
-
+        private async void NuevoEventoTenangoEnLog(object sender, string e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     LoggerTenango.Text += e;
+                     LoggerTenango.Text += System.Environment.NewLine;
+                     LoggerTenango.Text += System.Environment.NewLine;
+                 });
+        }
+        private async void NuevoEventoTolucaEnLog(object sender, string e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     LoggerToluca.Text += e;
+                     LoggerToluca.Text += System.Environment.NewLine;
+                     LoggerToluca.Text += System.Environment.NewLine;
+                 });
+        }
+        private async void NuevoEventoTerminalEnLog(object sender, string e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     LoggerTerminal.Text += e;
+                     LoggerTerminal.Text += System.Environment.NewLine;
+                     LoggerTerminal.Text += System.Environment.NewLine;
+                 });
+        }
         private async void EventoCambioHora(object sender, DateTime e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -58,149 +91,104 @@ namespace Simulador
                               {
 
                                   var parada1_1 = e.Where(p => p.Ruta == 1 && p.Parada == 1).First();
-                                  num_personas_1_1.Text = parada1_1.Personas.Num_Personsa_Espera.ToString();
                                   num_Camiones_1_1.Text = parada1_1.Num_Camiones_Espera.ToString();
                                   if (parada1_1.Camiones.Count > 0)
                                   {
-                                      cap_auto_1_1.Text = parada1_1.Camiones[0].Num_Abordo.ToString();
-                                      cap_max_auto_1_1.Text = parada1_1.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_1_1.Text = parada1_1.Camiones[0].Numero_Camion.ToString();
                                   }
                                   else
                                   {
                                       num_linea_1_1.Text = "";
-                                      cap_auto_1_1.Text ="0";
-                                      cap_max_auto_1_1.Text = "0";
                                   }
 
                                   var parada1_2 = e.Where(p => p.Ruta == 1 && p.Parada == 2).First();
-                                  num_personas_1_2.Text = parada1_2.Personas.Num_Personsa_Espera.ToString();
                                   num_Camiones_1_2.Text = parada1_2.Num_Camiones_Espera.ToString();
                                   if (parada1_2.Camiones.Count > 0)
                                   {
-                                      cap_auto_1_2.Text = parada1_2.Camiones[0].Num_Abordo.ToString();
-                                      cap_max_auto_1_2.Text = parada1_2.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_1_2.Text = parada1_2.Camiones[0].Numero_Camion.ToString();
                                   }
                                   else
                                   {
                                       num_linea_1_2.Text = "";
-                                      cap_auto_1_2.Text = "0";
-                                      cap_max_auto_1_2.Text = "0";
                                   }
 
                                   var parada1_3 = e.Where(p => p.Ruta == 1 && p.Parada == 3).First();
-                                  num_personas_1_3.Text = parada1_3.Personas.Num_Personsa_Espera.ToString();
                                   num_Camiones_1_3.Text = parada1_3.Num_Camiones_Espera.ToString();
                                   if (parada1_3.Camiones.Count > 0)
                                   {
-                                      cap_auto_1_3.Text = parada1_3.Camiones[0].Num_Abordo.ToString();
-                                      cap_max_auto_1_3.Text = parada1_3.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_1_3.Text = parada1_3.Camiones[0].Numero_Camion.ToString();
                                   }
                                   else
                                   {
                                       num_linea_1_3.Text = "";
-                                      cap_auto_1_3.Text = "0";
-                                      cap_max_auto_1_3.Text = "0";
                                   }
 
                                   var parada2_1 = e.Where(p => p.Ruta == 2 && p.Parada == 1).First();
-                                  num_personas_2_1.Text = parada2_1.Personas.Num_Personsa_Espera.ToString();
                                   num_Camiones_2_1.Text = parada2_1.Num_Camiones_Espera.ToString();
                                   if (parada2_1.Camiones.Count > 0)
                                   {
-                                      cap_auto_2_1.Text = parada2_1.Camiones[0].Num_Abordo.ToString();
-                                      cap_max_auto_2_1.Text = parada2_1.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_2_1.Text = parada2_1.Camiones[0].Numero_Camion.ToString();
                                   }
                                   else
                                   {
                                       num_linea_2_1.Text = "";
-                                      cap_auto_2_1.Text = "0";
-                                      cap_max_auto_2_1.Text = "0";
                                   }
 
 
                                   var parada2_2 = e.Where(p => p.Ruta == 2 && p.Parada == 2).First();
-                                  num_personas_2_2.Text = parada2_2.Personas.Num_Personsa_Espera.ToString();
                                   num_Camiones_2_2.Text = parada2_2.Num_Camiones_Espera.ToString();
                                   if (parada2_2.Camiones.Count > 0)
                                   {
-                                      cap_auto_2_2.Text = parada2_2.Camiones[0].Num_Abordo.ToString();
-                                      cap_max_auto_2_2.Text = parada2_2.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_2_2.Text = parada2_2.Camiones[0].Numero_Camion.ToString();
                                   }
                                   else
                                   {
                                       num_linea_2_2.Text = "";
-                                      cap_auto_2_2.Text = "0";
-                                      cap_max_auto_2_2.Text = "0";
                                   }
 
 
                                   var parada2_3 = e.Where(p => p.Ruta == 2 && p.Parada == 3).First();
-                                  num_personas_2_3.Text = parada2_3.Personas.Num_Personsa_Espera.ToString();
                                   num_Camiones_2_3.Text = parada2_3.Num_Camiones_Espera.ToString();
                                   if (parada2_3.Camiones.Count > 0)
                                   {
-                                      cap_auto_2_3.Text = parada2_3.Camiones[0].Num_Abordo.ToString();
-                                      cap_max_auto_2_3.Text = parada2_3.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_2_3.Text = parada2_3.Camiones[0].Numero_Camion.ToString();
                                   }
                                   else
                                   {
                                       num_linea_2_3.Text = "";
-                                      cap_auto_2_3.Text = "0";
-                                      cap_max_auto_2_3.Text = "0";
                                   }
 
                                   var parada3_1 = e.Where(p => p.Ruta == 3 && p.Parada == 1).First();
-                                  num_personas_3_1.Text = parada3_1.Personas.Num_Personsa_Espera.ToString();
                                   num_Camiones_3_1.Text = parada3_1.Num_Camiones_Espera.ToString();
                                   if (parada3_1.Camiones.Count > 0)
                                   {
-                                      cap_auto_3_1.Text = parada3_1.Camiones[0].Num_Abordo.ToString();
-                                      cap_max_auto_3_1.Text = parada3_1.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_3_1.Text = parada3_1.Camiones[0].Numero_Camion.ToString();
                                   }
                                   else
                                   {
                                       num_linea_3_1.Text = "";
-                                      cap_auto_3_1.Text = "0";
-                                      cap_max_auto_3_1.Text = "0"; 
                                   }
 
                                   var parada3_2 = e.Where(p => p.Ruta == 3 && p.Parada == 2).First();
-                                  num_personas_3_2.Text = parada3_2.Personas.Num_Personsa_Espera.ToString();
                                   num_Camiones_3_2.Text = parada3_2.Num_Camiones_Espera.ToString();
                                   if (parada3_2.Camiones.Count > 0)
                                   {
-                                      cap_auto_3_2.Text = parada3_2.Camiones[0].Num_Abordo.ToString();
-                                      cap_max_auto_3_2.Text = parada3_2.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_3_2.Text = parada3_2.Camiones[0].Numero_Camion.ToString();
                                   }
                                   else
                                   {
                                       num_linea_3_2.Text = "";
-                                      cap_auto_3_2.Text = "0";
-                                      cap_max_auto_3_2.Text = "0";
                                   }
 
                                   var parada3_3 = e.Where(p => p.Ruta == 3 && p.Parada == 3).First();
-                                  num_personas_3_3.Text = parada3_3.Personas.Num_Personsa_Espera.ToString();
                                   num_Camiones_3_3.Text = parada3_3.Num_Camiones_Espera.ToString();
                                   if (parada3_3.Camiones.Count > 0)
                                   {
-                                      cap_auto_3_3.Text = parada3_3.Camiones[0].Num_Abordo.ToString();
-                                      cap_max_auto_3_3.Text = parada3_3.Camiones[0].Total_Cap_Camion.ToString();
                                       num_linea_3_3.Text = parada3_3.Camiones[0].Numero_Camion.ToString();
                                   }
                                   else
                                   {
                                       num_linea_3_3.Text = "";
-                                      cap_auto_3_3.Text = "0";
-                                      cap_max_auto_3_3.Text = "0";
                                   }
 
                               });
@@ -318,14 +306,14 @@ namespace Simulador
                 anima.Agregar_Persona(1, 2);
                 await Task.Delay(100);
             }
-            
-        }   
+
+        }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             //anima.Quitar_Persona(ruta1_2, anima.Control_Global[0]);
 
-            anima.Agregar_Camion(1,2,40,10,1253,1000,9);
+            anima.Agregar_Camion(1, 2, 40, 10, 1253, 1000, 9);
 
 
         }
@@ -338,7 +326,7 @@ namespace Simulador
 
         private void volumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-                generador.CambiarVelocidad(e.NewValue);
+            generador.CambiarVelocidad(e.NewValue);
         }
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {

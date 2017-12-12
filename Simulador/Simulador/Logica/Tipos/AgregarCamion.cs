@@ -12,11 +12,12 @@ namespace Simulador.Logica
         public int Capacidad { get; set; }
         public int ABordo { get; set; }
         public int Bajan { get; set; }
-        public int TiempoParadaMilisegundos { get; set; }
+        public int TiempoParadaMs { get; set; }
+        public bool Moviendose { get; set; }
         public DateTimeOffset HoraSalida { get; set; }
 
 
-        public AgregarCamion(int numeroCamion, int ruta, int parada, int capacidad, int aBordo, int bajan, int tiempoParada, DateTimeOffset horaSalida)
+        public AgregarCamion(int numeroCamion, int ruta, int parada, int capacidad, int aBordo, int bajan,int tiempoParadaMs, DateTimeOffset horaSalida)
         {
             NumeroCamion = numeroCamion;
             Ruta = ruta;
@@ -24,7 +25,7 @@ namespace Simulador.Logica
             Capacidad = capacidad;
             ABordo = aBordo;
             Bajan = bajan;
-            TiempoParadaMilisegundos = tiempoParada;
+            TiempoParadaMs = tiempoParadaMs;
             HoraSalida = horaSalida;
         }
     }

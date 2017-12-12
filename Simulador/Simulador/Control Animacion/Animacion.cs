@@ -73,7 +73,7 @@ namespace Simulador.Control_Animacion
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                                          () =>
                                          {
-                                             Agregar_Camion(e.Ruta, e.Parada, e.Capacidad, e.ABordo, e.NumeroCamion, e.TiempoParadaMilisegundos, e.Bajan);
+                                             Agregar_Camion(e.Ruta, e.Parada, e.Capacidad, e.ABordo, e.NumeroCamion, e.TiempoParadaMs, e.Bajan);
                                          });               
             }
 

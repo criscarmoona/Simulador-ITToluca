@@ -287,17 +287,8 @@
                     <TextBlock x:Name="num_linea_1_1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="" FontWeight="ExtraBlack"/>
                 </Grid>
                 <StackPanel  Grid.Column="3" Grid.Row="2" >
-                    <TextBlock  Margin="0"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Run Text="Capacidad: " FontWeight="SemiBold"></Run>
-                        <Run x:Name="cap_auto_1_1" Text="0"></Run>  
-                        <Run Text="/"></Run>
-                        <Run x:Name="cap_max_auto_1_1" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                        <Run   Text="No. Personas: " FontWeight="SemiBold"></Run>
-                        <Run   x:Name="num_personas_1_1" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+
+                    <TextBlock  Margin="0"  FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Run Text="No. Camiones:" FontWeight="SemiBold"></Run>
                     <Run x:Name="num_Camiones_1_1" Text="0"></Run>
                     </TextBlock>
@@ -322,31 +313,22 @@
                 <Grid x:Name="cola_salida_1_2" Grid.Column="1" Grid.Row="1"  />
                 <Grid Grid.Column="1" Grid.Row="1"  >
                     <TextBlock  Text="Tec" FontWeight="Bold"  Foreground="#252526" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                 </Grid>
+                </Grid>
                 <Grid x:Name="cola_entrada_1_2" Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Center" />
                 <Grid x:Name="camion_1_2" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center">
-                </Grid>                
+                </Grid>
                 <Grid  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" >
                     <TextBlock x:Name="num_linea_1_2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="" FontWeight="ExtraBlack"/>
-                </Grid>                
+                </Grid>
                 <StackPanel  Grid.Column="3" Grid.Row="2" >
-                    <TextBlock  Margin="0"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Run Text="Capacidad: " FontWeight="SemiBold"></Run>
-                        <Run x:Name="cap_auto_1_2" Text="0"></Run>  
-                        <Run Text="/"></Run>
-                        <Run x:Name="cap_max_auto_1_2" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                        <Run   Text="No. Personas: " FontWeight="SemiBold"></Run>
-                        <Run   x:Name="num_personas_1_2" Text="0"></Run> 
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+
+                    <TextBlock  Margin="0"  FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Run Text="No. Camiones:" FontWeight="SemiBold"></Run>
                     <Run x:Name="num_Camiones_1_2" Text="0"></Run>
-                    </TextBlock>                  
+                    </TextBlock>
 
 
-                </StackPanel>  
+                </StackPanel>
             </Grid>
             <Grid Grid.Column="3"  Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -373,17 +355,7 @@
                     <TextBlock x:Name="num_linea_1_3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="" FontWeight="ExtraBlack"/>
                 </Grid>
                 <StackPanel  Grid.Column="3" Grid.Row="2" >
-                    <TextBlock  Margin="0"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Run Text="Capacidad: " FontWeight="SemiBold"></Run>
-                        <Run x:Name="cap_auto_1_3" Text="0"></Run>  
-                        <Run Text="/"></Run>
-                        <Run x:Name="cap_max_auto_1_3" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                        <Run   Text="No. Personas: " FontWeight="SemiBold"></Run>
-                        <Run   x:Name="num_personas_1_3" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <TextBlock  Margin="0"  FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Run Text="No. Camiones:" FontWeight="SemiBold"></Run>
                     <Run x:Name="num_Camiones_1_3" Text="0"></Run>
                     </TextBlock>
@@ -417,17 +389,7 @@
                     <TextBlock x:Name="num_linea_2_1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="" FontWeight="ExtraBlack"/>
                 </Grid>
                 <StackPanel  Grid.Column="3" Grid.Row="2" >
-                    <TextBlock  Margin="0"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Run Text="Capacidad: " FontWeight="SemiBold"></Run>
-                        <Run x:Name="cap_auto_2_1" Text="0"></Run>  
-                        <Run Text="/"></Run>
-                        <Run x:Name="cap_max_auto_2_1" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                        <Run   Text="No. Personas: " FontWeight="SemiBold"></Run>
-                        <Run   x:Name="num_personas_2_1" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <TextBlock  Margin="0"  FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Run Text="No. Camiones:" FontWeight="SemiBold"></Run>
                     <Run x:Name="num_Camiones_2_1" Text="0"></Run>
                     </TextBlock>
@@ -460,17 +422,8 @@
                     <TextBlock x:Name="num_linea_2_2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="" FontWeight="ExtraBlack"/>
                 </Grid>
                 <StackPanel  Grid.Column="3" Grid.Row="2" >
-                    <TextBlock  Margin="0"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Run Text="Capacidad: " FontWeight="SemiBold"></Run>
-                        <Run x:Name="cap_auto_2_2" Text="0"></Run>  
-                        <Run Text="/"></Run>
-                        <Run x:Name="cap_max_auto_2_2" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                        <Run   Text="No. Personas: " FontWeight="SemiBold"></Run>
-                        <Run   x:Name="num_personas_2_2" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+
+                    <TextBlock  Margin="0"  FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Run Text="No. Camiones:" FontWeight="SemiBold"></Run>
                     <Run x:Name="num_Camiones_2_2" Text="0"></Run>
                     </TextBlock>
@@ -494,7 +447,7 @@
                 </Grid.RowDefinitions>
                 <Grid x:Name="cola_salida_2_3" Grid.Column="1" Grid.Row="1"  />
                 <Grid Grid.Column="1" Grid.Row="1"  >
-                    <TextBlock  Text="Terminal" FontWeight="Bold"  Foreground="#252526" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <TextBlock  Text="Toluca" FontWeight="Bold"  Foreground="#252526" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 </Grid>
                 <Grid x:Name="cola_entrada_2_3" Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Center" />
                 <Grid x:Name="camion_2_3" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center">
@@ -503,17 +456,8 @@
                     <TextBlock x:Name="num_linea_2_3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="" FontWeight="ExtraBlack"/>
                 </Grid>
                 <StackPanel  Grid.Column="3" Grid.Row="2" >
-                    <TextBlock  Margin="0"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Run Text="Capacidad: " FontWeight="SemiBold"></Run>
-                        <Run x:Name="cap_auto_2_3" Text="0"></Run>  
-                        <Run Text="/"></Run>
-                        <Run x:Name="cap_max_auto_2_3" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                        <Run   Text="No. Personas: " FontWeight="SemiBold"></Run>
-                        <Run   x:Name="num_personas_2_3" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+
+                    <TextBlock  Margin="0"  FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Run Text="No. Camiones:" FontWeight="SemiBold"></Run>
                     <Run x:Name="num_Camiones_2_3" Text="0"></Run>
                     </TextBlock>
@@ -542,23 +486,14 @@
                 </Grid>
                 <Grid x:Name="cola_entrada_3_1" Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Center" />
                 <Grid x:Name="camion_3_1" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center">
-                    
+
                 </Grid>
                 <Grid  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" >
                     <TextBlock x:Name="num_linea_3_1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="" FontWeight="ExtraBlack"/>
                 </Grid>
                 <StackPanel  Grid.Column="3" Grid.Row="2" >
-                    <TextBlock  Margin="0"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Run Text="Capacidad: " FontWeight="SemiBold"></Run>
-                        <Run x:Name="cap_auto_3_1" Text="0"></Run>  
-                        <Run Text="/"></Run>
-                        <Run x:Name="cap_max_auto_3_1" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                        <Run   Text="No. Personas: " FontWeight="SemiBold"></Run>
-                        <Run   x:Name="num_personas_3_1" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+
+                    <TextBlock  Margin="0"  FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Run Text="No. Camiones:" FontWeight="SemiBold"></Run>
                     <Run x:Name="num_Camiones_3_1" Text="0"></Run>
                     </TextBlock>
@@ -591,17 +526,7 @@
                     <TextBlock x:Name="num_linea_3_2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="" FontWeight="ExtraBlack"/>
                 </Grid>
                 <StackPanel  Grid.Column="3" Grid.Row="2" >
-                    <TextBlock  Margin="0"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Run Text="Capacidad: " FontWeight="SemiBold"></Run>
-                        <Run x:Name="cap_auto_3_2" Text="0"></Run>  
-                        <Run Text="/"></Run>
-                        <Run x:Name="cap_max_auto_3_2" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                        <Run   Text="No. Personas: " FontWeight="SemiBold"></Run>
-                        <Run   x:Name="num_personas_3_2" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <TextBlock  Margin="0"  FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Run Text="No. Camiones:" FontWeight="SemiBold"></Run>
                     <Run x:Name="num_Camiones_3_2" Text="0"></Run>
                     </TextBlock>
@@ -625,7 +550,7 @@
                 </Grid.RowDefinitions>
                 <Grid x:Name="cola_salida_3_3" Grid.Column="1" Grid.Row="1"  />
                 <Grid Grid.Column="1" Grid.Row="1"  >
-                    <TextBlock  Text="Galerias" FontWeight="Bold"  Foreground="#252526" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <TextBlock  Text="Terminal" FontWeight="Bold"  Foreground="#252526" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 </Grid>
                 <Grid x:Name="cola_entrada_3_3" Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Center" />
                 <Grid x:Name="camion_3_3" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center">
@@ -634,17 +559,8 @@
                     <TextBlock x:Name="num_linea_3_3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#252526" Text="" FontWeight="ExtraBlack"/>
                 </Grid>
                 <StackPanel  Grid.Column="3" Grid.Row="2" >
-                    <TextBlock  Margin="0"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Run Text="Capacidad: " FontWeight="SemiBold"></Run>
-                        <Run x:Name="cap_auto_3_3" Text="0"></Run>  
-                        <Run Text="/"></Run>
-                        <Run x:Name="cap_max_auto_3_3" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                        <Run   Text="No. Personas: " FontWeight="SemiBold"></Run>
-                        <Run   x:Name="num_personas_3_3" Text="0"></Run>
-                    </TextBlock>
-                    <TextBlock  Margin="0"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                  
+                    <TextBlock  Margin="0"  FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Run Text="No. Camiones:" FontWeight="SemiBold"></Run>
                     <Run x:Name="num_Camiones_3_3" Text="0"></Run>
                     </TextBlock>
@@ -658,6 +574,10 @@
         </Grid>
 
         <Grid Grid.Column="1" Background="#252526">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
             <StackPanel VerticalAlignment="Center">
                 <TextBlock x:Name="Hora"
                            Foreground="White" 
@@ -677,8 +597,30 @@
                     <Run Text="x"></Run>
                      <Run Text="{Binding ElementName=volumeSlider, Path=Value}"></Run>
                 </TextBlock>
+            </StackPanel>
 
-                <!--<ComboBox Margin="30 10 30 10" Header="Linea" Foreground="White" HorizontalAlignment="Stretch"></ComboBox>
+
+            <ScrollViewer Grid.Row="1"
+                              Background="WhiteSmoke"
+                              VerticalAlignment="Stretch">
+                <Pivot>
+                    <PivotItem Header="Tenango">
+                        <TextBlock x:Name="LoggerTenango"
+                           TextWrapping="Wrap"/>
+                    </PivotItem>
+                    <PivotItem Header="Toluca">
+                        <TextBlock x:Name="LoggerToluca"
+                           TextWrapping="Wrap"/>
+                    </PivotItem>
+                    <PivotItem Header="Terminal">
+                        <TextBlock x:Name="LoggerTerminal"
+                           TextWrapping="Wrap"/>
+                    </PivotItem>
+                </Pivot>
+                
+            </ScrollViewer>
+
+            <!--<ComboBox Margin="30 10 30 10" Header="Linea" Foreground="White" HorizontalAlignment="Stretch"></ComboBox>
                 <ComboBox Margin="30 10 30 10" Header="Ruta" Foreground="White" HorizontalAlignment="Stretch"></ComboBox>
                 <TextBox Margin="30 10 30 10" Header="Capacidad" Foreground="White"  HorizontalAlignment="Stretch"></TextBox>
                 <Button Content="añadir" Foreground="White" Click="Button_Click" HorizontalAlignment="Center"></Button>
@@ -688,7 +630,6 @@
                 <Button Content="Añadir Camion" Foreground="White" Click="Button_Click_1"  HorizontalAlignment="Center"></Button>
                 <Button Content="quitar camion" Foreground="White" Click="Button_Click_4"   HorizontalAlignment="Center"></Button>-->
 
-            </StackPanel>
 
 
         </Grid>
